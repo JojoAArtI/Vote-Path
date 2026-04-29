@@ -133,12 +133,14 @@ export default function Assistant() {
   }
 
   return (
-    <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+    <section className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
       <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civic-700">Interactive assistant</p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">Answer a few questions for tailored guidance.</h2>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+          Answer a few questions for tailored guidance.
+        </h2>
         <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
-          The assistant is rule-based, privacy-friendly, and focused on the civic process only. It does not make political recommendations.
+          The assistant is rule-based, privacy-friendly, and focused on the civic process only. It does not make political recommendations, and it stays useful even if you only know part of your voting setup.
         </p>
 
         <div className="mt-6 rounded-3xl bg-slate-50 p-4 ring-1 ring-slate-200">
@@ -172,6 +174,22 @@ export default function Assistant() {
               {entry.text}
             </div>
           ))}
+        </div>
+
+        <div className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-5">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civicGreen-700">What this assistant covers</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {[
+              "Eligibility and first-time voter prep",
+              "Documents and voter ID reminders",
+              "Polling location and map guidance",
+              "Simple voting-day step-by-step help"
+            ].map((item) => (
+              <div key={item} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700">
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
@@ -276,10 +294,22 @@ export default function Assistant() {
                 </article>
               ))}
             </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                "Keep the checklist open while you prepare.",
+                "Use the map if you need booth guidance.",
+                "Share the assistant with someone who wants a neutral explanation.",
+                "Return anytime if your voting details change."
+              ].map((item) => (
+                <div key={item} className="rounded-3xl border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-600">
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
     </section>
   );
 }
-
