@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { GsapReveal } from "@/components/GsapReveal";
 import {
   AssistantAnswers,
   deriveGuidance,
@@ -134,7 +135,7 @@ export default function Assistant() {
 
   return (
     <section className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-      <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
+      <GsapReveal className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civic-700">Interactive assistant</p>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
           Answer a few questions for tailored guidance.
@@ -185,7 +186,7 @@ export default function Assistant() {
               "Polling location and map guidance",
               "Simple voting-day step-by-step help"
             ].map((item) => (
-              <div key={item} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700">
+              <div key={item} data-gsap-item className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700">
                 {item}
               </div>
             ))}
@@ -201,9 +202,9 @@ export default function Assistant() {
             Start over
           </button>
         </div>
-      </div>
+      </GsapReveal>
 
-      <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
+      <GsapReveal className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
         {question ? (
           <div className="space-y-6">
             <div>
@@ -224,6 +225,7 @@ export default function Assistant() {
                     key={option.value}
                     type="button"
                     onClick={() => setYesNoAnswer(question.id, option.value)}
+                    data-gsap-item
                     className="rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-left text-base font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:border-civic-300 hover:bg-civic-50"
                   >
                     {option.label}
@@ -281,7 +283,7 @@ export default function Assistant() {
 
             <div className="grid gap-4">
               {guidance.sections.map((section) => (
-                <article key={section.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                <article key={section.title} data-gsap-item className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
                   <h4 className="text-lg font-semibold text-slate-900">{section.title}</h4>
                   <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-600">
                     {section.items.map((item) => (
@@ -302,14 +304,14 @@ export default function Assistant() {
                 "Share the assistant with someone who wants a neutral explanation.",
                 "Return anytime if your voting details change."
               ].map((item) => (
-                <div key={item} className="rounded-3xl border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-600">
+                <div key={item} data-gsap-item className="rounded-3xl border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-600">
                   {item}
                 </div>
               ))}
             </div>
           </div>
         )}
-      </div>
+      </GsapReveal>
     </section>
   );
 }

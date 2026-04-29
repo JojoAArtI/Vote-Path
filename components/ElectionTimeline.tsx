@@ -1,3 +1,5 @@
+import { GsapReveal } from "@/components/GsapReveal";
+
 const timelineSteps = [
   {
     title: "Check eligibility",
@@ -85,8 +87,8 @@ const timelineSteps = [
 export default function ElectionTimeline() {
   return (
     <section className="space-y-6">
-      <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
+      <GsapReveal className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+        <div data-gsap-item className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civic-700">Election timeline</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">A clear path from eligibility to results.</h2>
           <p className="mt-3 text-base leading-7 text-slate-600">
@@ -94,7 +96,7 @@ export default function ElectionTimeline() {
           </p>
         </div>
 
-        <div className="rounded-[2rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-soft sm:p-8">
+        <div data-gsap-item className="rounded-[2rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-soft sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/60">At a glance</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {[
@@ -106,15 +108,16 @@ export default function ElectionTimeline() {
               <div key={item} className="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-white/80">
                 {item}
               </div>
-            ))}
+              ))}
           </div>
         </div>
-      </div>
+      </GsapReveal>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <GsapReveal className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {timelineSteps.map((step, index) => (
           <details
             key={step.title}
+            data-gsap-item
             className="group rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft"
           >
             <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
@@ -141,7 +144,7 @@ export default function ElectionTimeline() {
             </div>
           </details>
         ))}
-      </div>
+      </GsapReveal>
     </section>
   );
 }

@@ -27,38 +27,32 @@ export function GsapReveal({ children, className = "", stagger = 0.12, start = "
       return;
     }
 
-    const ctx = gsap.context(() => {
-      gsap.set(items, {
-        opacity: 0,
-        y: 28,
-        filter: "blur(8px)"
-      });
+    gsap.set(items, {
+      opacity: 0,
+      y: 28,
+      filter: "blur(8px)"
+    });
 
-      const tween = gsap.to(items, {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        duration: 0.9,
-        ease: "power3.out",
-        stagger,
-        paused: true
-      });
+    const tween = gsap.to(items, {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      duration: 0.9,
+      ease: "power3.out",
+      stagger,
+      paused: true
+    });
 
-      const trigger = ScrollTrigger.create({
-        trigger: root,
-        start,
-        once: true,
-        onEnter: () => tween.play(0)
-      });
-
-      return () => {
-        trigger.kill();
-        tween.kill();
-      };
-    }, root);
+    const trigger = ScrollTrigger.create({
+      trigger: root,
+      start,
+      once: true,
+      onEnter: () => tween.play(0)
+    });
 
     return () => {
-      ctx.revert();
+      trigger.kill();
+      tween.kill();
     };
   }, [start, stagger]);
 
