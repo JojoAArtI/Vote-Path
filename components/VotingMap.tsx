@@ -3,12 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { generateDemoCenterFromArea, generateMockBooths, type Coordinates, type MockBooth } from "@/lib/mockBooths";
 
-declare global {
-  interface Window {
-    google?: typeof google;
-  }
-}
-
 type LocationMode = "idle" | "loading" | "manual" | "ready" | "error";
 
 type ManualLocation = {
@@ -24,6 +18,24 @@ const DEFAULT_MANUAL_LOCATION: ManualLocation = {
 };
 
 let googleMapsLoader: Promise<void> | null = null;
+
+type GoogleMapsWindow = Window & {
+  google?: {
+    maps: {
+      Map: new (element: HTMLElement, options: { center: Coordinates; zoom: number; mapTypeControl: boolean; streetViewControl: boolean; fullscreenControl: boolean }) => {
+        setCenter: (center: Coordinates) => void;
+      };
+      Marker: new (options: { position: Coordinates; map: { setCenter: (center: Coordinates) => void } | null; title: string }) => {
+        setMap: (map: { setCenter: (center: Coordinates) => void } | null) => void;
+        addListener: (eventName: string, handler: () => void) => void;
+      };
+      InfoWindow: new () => {
+        setContent: (content: string) => void;
+        open: (options: { map: { setCenter: (center: Coordinates) => void }; anchor: unknown }) => void;
+      };
+    };
+  };
+};
 
 function loadGoogleMaps(apiKey: string): Promise<void> {
   if (typeof window === "undefined") {
@@ -72,9 +84,9 @@ export default function VotingMap() {
   const [selectedBoothId, setSelectedBoothId] = useState<string>("");
   const [apiReady, setApiReady] = useState(false);
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const mapInstanceRef = useRef<google.maps.Map | null>(null);
-  const markerRefs = useRef<google.maps.Marker[]>([]);
-  const infoWindowRef = useRef<google.maps.InfoWindow | null>(null);
+  const mapInstanceRef = useRef<ReturnType<NonNullable<GoogleMapsWindow["google"]>["maps"]["Map"]> | null>(null);
+  const markerRefs = useRef<Array<ReturnType<NonNullable<GoogleMapsWindow["google"]>["maps"]["Marker"]>>>([]);
+  const infoWindowRef = useRef<ReturnType<NonNullable<GoogleMapsWindow["google"]>["maps"]["InfoWindow"]> | null>(null);
 
   const selectedBooth = useMemo(
     () => booths.find((booth) => booth.id === selectedBoothId) ?? null,
@@ -98,11 +110,13 @@ export default function VotingMap() {
 
     loadGoogleMaps(apiKey)
       .then(() => {
-        if (cancelled || !window.google?.maps || !mapRef.current) {
+        const mapsWindow = window as GoogleMapsWindow;
+
+        if (cancelled || !mapsWindow.google?.maps || !mapRef.current) {
           return;
         }
 
-        const googleMaps = window.google.maps;
+        const googleMaps = mapsWindow.google.maps;
 
         if (!mapInstanceRef.current) {
           mapInstanceRef.current = new googleMaps.Map(mapRef.current, {
@@ -241,24 +255,21 @@ export default function VotingMap() {
           </div>
 
           <div className="mt-4 rounded-3xl border border-slate-200 bg-slate-50 p-4">
-            <div
-              ref={mapRef}
-              className={`relative min-h-[28rem] overflow-hidden rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-civic-50 via-white to-civicGreen-50 ${
-                apiKey && locationMode === "ready" ? "shadow-inner" : ""
-              }`}
-            >
+            <div className="relative min-h-[28rem] overflow-hidden rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-civic-50 via-white to-civicGreen-50 shadow-inner">
+              <div ref={mapRef} className="absolute inset-0" />
+
               {!apiKey ? (
-                <div className="flex h-full min-h-[28rem] items-center justify-center p-8 text-center">
-                  <div className="max-w-md">
+                <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
+                  <div className="max-w-md rounded-3xl bg-white/90 p-6 shadow-soft ring-1 ring-slate-200">
                     <p className="text-lg font-semibold text-slate-900">Google Maps API key is not set.</p>
                     <p className="mt-3 text-sm leading-6 text-slate-600">
-                      Add <code className="rounded bg-white px-1.5 py-0.5 text-civic-800">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to enable the live map. The manual location flow still works.
+                      Add <code className="rounded bg-slate-100 px-1.5 py-0.5 text-civic-800">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to enable the live map. The manual location flow still works.
                     </p>
                   </div>
                 </div>
               ) : locationMode === "idle" || locationMode === "loading" ? (
-                <div className="flex h-full min-h-[28rem] items-center justify-center p-8 text-center">
-                  <div className="max-w-md">
+                <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
+                  <div className="max-w-md rounded-3xl bg-white/90 p-6 shadow-soft ring-1 ring-slate-200">
                     <p className="text-lg font-semibold text-slate-900">Click to share your location.</p>
                     <p className="mt-3 text-sm leading-6 text-slate-600">
                       We only request browser geolocation after you click the button above.
@@ -266,7 +277,7 @@ export default function VotingMap() {
                   </div>
                 </div>
               ) : locationMode === "manual" ? (
-                <div className="flex h-full min-h-[28rem] items-center justify-center p-8">
+                <div className="absolute inset-0 flex items-center justify-center p-8">
                   <div className="w-full max-w-lg rounded-[1.75rem] bg-white p-6 shadow-soft ring-1 ring-slate-200">
                     <h3 className="text-2xl font-semibold tracking-tight text-slate-950">Enter your area details</h3>
                     <p className="mt-2 text-sm leading-6 text-slate-600">
@@ -304,16 +315,8 @@ export default function VotingMap() {
                   </div>
                 </div>
               ) : (
-                <div className="flex h-full min-h-[28rem] items-center justify-center p-8 text-center">
-                  <div className="max-w-md">
-                    <p className="text-lg font-semibold text-slate-900">
-                      {apiReady ? "Map loaded and booths generated." : "Preparing map..."}
-                    </p>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
-                      {locationLabel ? `Centered near ${locationLabel}.` : "Once the map loads, markers will appear here."}
-                    </p>
-                    {locationError ? <p className="mt-3 text-sm font-medium text-rose-600">{locationError}</p> : null}
-                  </div>
+                <div className="absolute left-4 top-4 z-10 rounded-2xl bg-white/90 px-4 py-3 text-sm font-medium text-slate-700 shadow-soft ring-1 ring-slate-200 backdrop-blur">
+                  {apiReady ? `Centered near ${locationLabel || "your chosen area"}.` : "Preparing map..."}
                 </div>
               )}
             </div>
@@ -393,4 +396,3 @@ export default function VotingMap() {
     </section>
   );
 }
-
