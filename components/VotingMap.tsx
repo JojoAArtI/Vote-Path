@@ -22,7 +22,10 @@ let googleMapsLoader: Promise<void> | null = null;
 type GoogleMapsWindow = Window & {
   google?: {
     maps: {
-      Map: new (element: HTMLElement, options: { center: Coordinates; zoom: number; mapTypeControl: boolean; streetViewControl: boolean; fullscreenControl: boolean }) => {
+      Map: new (
+        element: HTMLElement,
+        options: { center: Coordinates; zoom: number; mapTypeControl: boolean; streetViewControl: boolean; fullscreenControl: boolean }
+      ) => {
         setCenter: (center: Coordinates) => void;
       };
       Marker: new (options: { position: Coordinates; map: { setCenter: (center: Coordinates) => void } | null; title: string }) => {
@@ -84,9 +87,9 @@ export default function VotingMap() {
   const [selectedBoothId, setSelectedBoothId] = useState<string>("");
   const [apiReady, setApiReady] = useState(false);
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const mapInstanceRef = useRef<ReturnType<NonNullable<GoogleMapsWindow["google"]>["maps"]["Map"]> | null>(null);
-  const markerRefs = useRef<Array<ReturnType<NonNullable<GoogleMapsWindow["google"]>["maps"]["Marker"]>>>([]);
-  const infoWindowRef = useRef<ReturnType<NonNullable<GoogleMapsWindow["google"]>["maps"]["InfoWindow"]> | null>(null);
+  const mapInstanceRef = useRef<any>(null);
+  const markerRefs = useRef<any[]>([]);
+  const infoWindowRef = useRef<any>(null);
 
   const selectedBooth = useMemo(
     () => booths.find((booth) => booth.id === selectedBoothId) ?? null,
