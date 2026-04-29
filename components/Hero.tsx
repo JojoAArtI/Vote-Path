@@ -54,6 +54,30 @@ export default function Hero() {
       return;
     }
 
+    const handleMove = (event: MouseEvent) => {
+      const rect = shell.getBoundingClientRect();
+      const offsetX = event.clientX - rect.left - rect.width / 2;
+      const offsetY = event.clientY - rect.top - rect.height / 2;
+      const x = gsap.utils.clamp(-18, 18, offsetX / 18);
+      const y = gsap.utils.clamp(-14, 14, offsetY / 18);
+      xTo(x);
+      yTo(y);
+      rotateTo(x / 8);
+    };
+
+    const handleLeave = () => {
+      xTo(0);
+      yTo(0);
+      rotateTo(0);
+    };
+
+    const xTo = gsap.quickTo(right, "x", { duration: 0.8, ease: "power3.out" });
+    const yTo = gsap.quickTo(right, "y", { duration: 0.8, ease: "power3.out" });
+    const rotateTo = gsap.quickTo(right, "rotate", { duration: 0.8, ease: "power3.out" });
+
+    shell.addEventListener("mousemove", handleMove);
+    shell.addEventListener("mouseleave", handleLeave);
+
     const ctx = gsap.context(() => {
       const heroItems = shell.querySelectorAll<HTMLElement>("[data-hero-item]");
       const rightCards = shell.querySelectorAll<HTMLElement>("[data-right-card]");
@@ -90,38 +114,11 @@ export default function Hero() {
           delay: index * 0.2
         });
       });
-
-      const xTo = gsap.quickTo(right, "x", { duration: 0.8, ease: "power3.out" });
-      const yTo = gsap.quickTo(right, "y", { duration: 0.8, ease: "power3.out" });
-      const rotateTo = gsap.quickTo(right, "rotate", { duration: 0.8, ease: "power3.out" });
-
-      const handleMove = (event: MouseEvent) => {
-        const rect = shell.getBoundingClientRect();
-        const offsetX = event.clientX - rect.left - rect.width / 2;
-        const offsetY = event.clientY - rect.top - rect.height / 2;
-        const x = gsap.utils.clamp(-18, 18, offsetX / 18);
-        const y = gsap.utils.clamp(-14, 14, offsetY / 18);
-        xTo(x);
-        yTo(y);
-        rotateTo(x / 8);
-      };
-
-      const handleLeave = () => {
-        xTo(0);
-        yTo(0);
-        rotateTo(0);
-      };
-
-      shell.addEventListener("mousemove", handleMove);
-      shell.addEventListener("mouseleave", handleLeave);
-
-      return () => {
-        shell.removeEventListener("mousemove", handleMove);
-        shell.removeEventListener("mouseleave", handleLeave);
-      };
     }, shell);
 
     return () => {
+      shell.removeEventListener("mousemove", handleMove);
+      shell.removeEventListener("mouseleave", handleLeave);
       ctx.revert();
     };
   }, []);
