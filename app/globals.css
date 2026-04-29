@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-source-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-body), Arial, sans-serif;
+  color: rgb(15 23 42);
+  background:
+    radial-gradient(circle at top left, rgba(30, 136, 255, 0.14), transparent 30%),
+    radial-gradient(circle at top right, rgba(22, 168, 116, 0.12), transparent 28%),
+    linear-gradient(180deg, #f8fbff 0%, #ffffff 45%, #f6fbf9 100%);
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(30, 136, 255, 0.2);
+  color: rgb(15 23 42);
+}
+
+:focus-visible {
+  outline: 3px solid rgba(30, 136, 255, 0.6);
+  outline-offset: 3px;
+}
+
