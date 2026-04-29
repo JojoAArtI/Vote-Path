@@ -45,7 +45,9 @@ function loadGoogleMaps(apiKey: string): Promise<void> {
     return Promise.resolve();
   }
 
-  if (window.google?.maps) {
+  const mapsWindow = window as GoogleMapsWindow;
+
+  if (mapsWindow.google?.maps) {
     return Promise.resolve();
   }
 
