@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Space_Grotesk, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   description: "VotePath helps people understand the election process and find their polling booth."
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${sourceSans.variable}`}>
       <body className="min-h-screen text-slate-900 antialiased">
@@ -33,4 +34,3 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
-
