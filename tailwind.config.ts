@@ -5,22 +5,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Base dark backgrounds
+        // Dark surfaces — lifted from pure black to charcoal
         void: {
-          DEFAULT: "#0a0a0a",
-          50:      "#141414",
-          100:     "#111111",
-          200:     "#0e0e0e",
+          DEFAULT: "#13161f",   // body bg — dark charcoal
+          50:      "#1c2030",   // card surfaces — visible depth
+          100:     "#181b26",   // slightly lighter inset
+          200:     "#151821",   // between body and card
         },
-        // Text — off-white scale
+        // Text — brighter off-white scale
         fog: {
-          50:  "#fafaf9",
-          100: "#f0ebe4",
-          200: "#d8d2ca",
-          300: "#b8b0a6",
-          400: "#8f8880",
-          500: "#6a6460",
-          600: "#4a4440",
+          50:  "#f5f1eb",       // headings — warm bright white
+          100: "#e8e3dc",       // body text
+          200: "#ccc6bc",       // secondary text
+          300: "#a8a29a",       // muted text
+          400: "#837d76",       // placeholder / helper
+          500: "#5e5a55",       // very muted
+          600: "#3d3a36",       // dividers
         },
         // Brand orange
         ember: {
@@ -36,7 +36,7 @@ const config: Config = {
           800: "#873d12",
           900: "#6b3110",
         },
-        // Legacy aliases used in non-redesigned pages
+        // Legacy aliases — kept for any unconverted inner component
         paper: {
           50:  "#fcf9f4",
           100: "#f7f0e7",
@@ -67,14 +67,14 @@ const config: Config = {
         mono: ["var(--font-mono)", "monospace"],
       },
       boxShadow: {
-        "orange-glow": "0 0 80px -10px rgba(244,127,31,0.40)",
-        "card":        "0 1px 0 rgba(255,255,255,0.05) inset, 0 24px 60px -30px rgba(0,0,0,0.7)",
-        soft:          "0 24px 60px -34px rgba(20,14,10,0.35)",
-        panel:         "0 28px 80px -38px rgba(20,14,10,0.48)",
+        "orange-glow": "0 0 80px -10px rgba(244,127,31,0.35)",
+        "card":        "0 1px 0 rgba(255,255,255,0.07) inset, 0 20px 50px -20px rgba(0,0,0,0.5)",
+        soft:          "0 24px 60px -34px rgba(10,10,15,0.4)",
+        panel:         "0 28px 80px -38px rgba(10,10,15,0.55)",
         glow:          "0 24px 60px -28px rgba(244,127,31,0.28)",
       },
       backgroundImage: {
-        "grid-dark": "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
+        "grid-dark": "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
       },
     }
   },

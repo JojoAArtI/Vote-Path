@@ -14,8 +14,8 @@ html {
 
 body {
   min-height: 100vh;
-  background: #0a0a0a;
-  color: #f0ebe4;
+  background: #13161f;
+  color: #e8e3dc;
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -36,15 +36,4 @@ a {
 :focus-visible {
   outline: 2px solid #f47f1f;
   outline-offset: 3px;
-}
-
-/* subtle scanline texture */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image: linear-gradient(transparent 50%, rgba(255,255,255,0.012) 50%);
-  background-size: 100% 4px;
-  z-index: 0;
 }
