@@ -18,7 +18,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="group inline-flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-ember text-[10px] font-bold tracking-widest text-black transition duration-200 group-hover:bg-ember-400">
+          <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-ember-500 text-[10px] font-bold tracking-widest text-black transition duration-200 group-hover:bg-ember-400">
             VP
           </span>
           <span className="font-mono text-[0.78rem] font-bold uppercase tracking-[0.32em] text-fog-100 transition group-hover:text-ember">
@@ -49,7 +49,7 @@ export default function Navbar() {
         {/* CTA */}
         <Link
           href="/assistant"
-          className="inline-flex items-center gap-2 rounded-sm bg-ember px-5 py-2.5 font-mono text-[0.68rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
+          className="inline-flex items-center gap-2 rounded-sm bg-ember-500 px-5 py-2.5 font-mono text-[0.68rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
         >
           Start path →
         </Link>

@@ -87,9 +87,9 @@ export default function Hero() {
             {/* Eyebrow */}
             <div
               ref={(n) => { if (n) itemsRef.current[0] = n; }}
-              className="inline-flex w-fit items-center gap-2 rounded-sm border border-ember/30 bg-ember/10 px-4 py-1.5 font-mono text-[0.65rem] font-bold uppercase tracking-[0.32em] text-ember"
+              className="inline-flex w-fit items-center gap-2 rounded-sm border border-ember-500/30 bg-ember-500/10 px-4 py-1.5 font-mono text-[0.65rem] font-bold uppercase tracking-[0.32em] text-ember-500"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-ember animate-pulse" />
+              <span className="h-1.5 w-1.5 rounded-full bg-ember-500 animate-pulse" />
               Neutral civic flow
             </div>
 
@@ -117,7 +117,7 @@ export default function Hero() {
             >
               <Link
                 href="/assistant"
-                className="inline-flex items-center gap-2 rounded-sm bg-ember px-7 py-3.5 font-mono text-[0.72rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
+                className="inline-flex items-center gap-2 rounded-sm bg-ember-500 px-7 py-3.5 font-mono text-[0.72rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
               >
                 Start assistant →
               </Link>
@@ -158,7 +158,7 @@ export default function Hero() {
             {/* Floating orb 3 – accent */}
             <div
               ref={orbRef3}
-              className="absolute -right-4 top-48 h-14 w-14 rounded-full bg-ember/60 blur-sm"
+              className="absolute -right-4 top-48 h-14 w-14 rounded-full bg-ember-500/60 blur-sm"
             />
 
             {/* Glass card */}
@@ -175,11 +175,11 @@ export default function Hero() {
                   <Link
                     key={f.num}
                     href={f.href}
-                    className="group flex items-start gap-4 rounded-sm border border-white/[0.06] bg-white/[0.03] p-4 transition hover:border-ember/30 hover:bg-ember/[0.06]"
+                    className="group flex items-start gap-4 rounded-sm border border-white/[0.06] bg-white/[0.03] p-4 transition hover:border-ember-500/30 hover:bg-ember-500/[0.06]"
                   >
                     <span className="font-mono text-[0.6rem] font-bold tracking-widest text-fog-500">{f.num}</span>
                     <div>
-                      <p className="font-mono text-[0.62rem] font-bold uppercase tracking-[0.28em] text-ember">{f.label}</p>
+                      <p className="font-mono text-[0.62rem] font-bold uppercase tracking-[0.28em] text-ember-500">{f.label}</p>
                       <p className="mt-1 text-sm font-semibold text-fog-100">{f.title}</p>
                       <p className="mt-1 text-[0.72rem] leading-5 text-fog-500">{f.text}</p>
                     </div>
