@@ -4,65 +4,63 @@ import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 
-const capabilityRows = [
+const stats = [
+  { label: "Districts covered",   value: "28+" },
+  { label: "Steps to vote",       value: "5"   },
+  { label: "Privacy first",       value: "100%" },
+];
+
+const features = [
   {
+    num: "01",
     label: "Assistant",
-    title: "Answer a few questions, get a practical voting path.",
-    text: "Age, voter ID, first-time voter status, polling location knowledge, and document help shape the guidance."
+    title: "Tailored voting path.",
+    text:  "Answer a few questions. Get a path built for your exact situation.",
+    href:  "/assistant",
   },
   {
+    num: "02",
     label: "Timeline",
-    title: "See the process as a clear sequence.",
-    text: "Eligibility, registration, location, documents, and completion are broken into calm, readable steps."
+    title: "Every step. In order.",
+    text:  "Eligibility → registration → booth → results, laid out clearly.",
+    href:  "/timeline",
   },
   {
+    num: "03",
     label: "Map",
-    title: "Find a booth without a noisy experience.",
-    text: "Click to share location, view mock booths near you, and fall back to manual area entry when needed."
-  }
+    title: "Find your booth.",
+    text:  "Browser geolocation or manual entry — no noisy UX.",
+    href:  "/map",
+  },
 ];
-
-const proofPoints = [
-  "Neutral guidance from first click to completion.",
-  "Local storage only, no server-side profile.",
-  "Designed for mobile-first election-day use."
-];
-
-const partnerMarks = ["Eligibility", "Location", "Checklist", "Timeline", "Booths"];
 
 export default function Hero() {
-  const shellRef = useRef<HTMLDivElement | null>(null);
-  const heroItemsRef = useRef<HTMLElement[]>([]);
-  const floaterRefs = useRef<HTMLElement[]>([]);
+  const shellRef  = useRef<HTMLDivElement | null>(null);
+  const itemsRef  = useRef<HTMLElement[]>([]);
+  const orbRef1   = useRef<HTMLDivElement | null>(null);
+  const orbRef2   = useRef<HTMLDivElement | null>(null);
+  const orbRef3   = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     const shell = shellRef.current;
-    if (!shell) {
-      return;
-    }
+    if (!shell) return;
 
     const ctx = gsap.context(() => {
-      const items = heroItemsRef.current.filter(Boolean);
-      const floaters = floaterRefs.current.filter(Boolean);
+      const items = itemsRef.current.filter(Boolean);
 
-      gsap.set(items, { y: 22, opacity: 0 });
-      gsap.set(floaters, { y: 18, opacity: 0, scale: 0.95 });
+      gsap.set(items, { y: 30, opacity: 0 });
+      gsap.to(items, { y: 0, opacity: 1, duration: 0.9, stagger: 0.1, ease: "power3.out" });
 
-      const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
-      intro.to(items, { y: 0, opacity: 1, duration: 0.8, stagger: 0.08 }).to(
-        floaters,
-        { y: 0, opacity: 1, scale: 1, duration: 0.9, stagger: 0.08 },
-        "-=0.45"
-      );
-
-      floaters.forEach((floater, index) => {
-        gsap.to(floater, {
-          y: index % 2 === 0 ? -10 : -14,
-          duration: 3.6 + index * 0.3,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-          delay: index * 0.2
+      // orb floats
+      [orbRef1, orbRef2, orbRef3].forEach((ref, i) => {
+        if (!ref.current) return;
+        gsap.to(ref.current, {
+          y:        i % 2 === 0 ? -18 : -12,
+          duration: 3.8 + i * 0.5,
+          ease:     "sine.inOut",
+          repeat:   -1,
+          yoyo:     true,
+          delay:    i * 0.3,
         });
       });
     }, shell);
@@ -71,224 +69,140 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
-      <div
-        ref={shellRef}
-        className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-black/10 bg-paper-50 shadow-panel"
-      >
-        <div className="grid min-h-[min(100dvh,960px)] lg:grid-cols-[1.02fr_0.98fr]">
-          <div className="relative flex flex-col justify-between overflow-hidden bg-[linear-gradient(180deg,#fbf7f0_0%,#f6efe4_100%)] px-6 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(244,127,31,0.10),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(69,44,21,0.08),transparent_34%)]" />
-            <div className="relative z-10">
-              <div
-                ref={(node) => {
-                  if (node) heroItemsRef.current[0] = node;
-                }}
-                className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-ink-500 shadow-soft"
-              >
-                <span className="h-2 w-2 rounded-full bg-ember-500" />
-                Neutral election guidance, maps, and checklists
-              </div>
+    <section ref={shellRef} className="relative overflow-hidden bg-void">
+      {/* Background glow layers */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute right-0 top-0 h-[700px] w-[700px] rounded-full bg-[radial-gradient(circle,rgba(244,127,31,0.22)_0%,transparent_65%)]" />
+        <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(244,127,31,0.08)_0%,transparent_70%)]" />
+        {/* Speed lines (diagonal) */}
+        <div className="absolute inset-0 bg-[linear-gradient(105deg,transparent_30%,rgba(255,255,255,0.018)_31%,transparent_32%),linear-gradient(105deg,transparent_50%,rgba(255,255,255,0.012)_51%,transparent_52%),linear-gradient(105deg,transparent_68%,rgba(255,255,255,0.008)_69%,transparent_70%)]" />
+      </div>
 
-              <div className="mt-8 max-w-3xl">
-                <p
-                  ref={(node) => {
-                    if (node) heroItemsRef.current[1] = node;
-                  }}
-                  className="font-mono text-[0.72rem] uppercase tracking-[0.34em] text-ink-400"
-                >
-                  VotePath
-                </p>
-                <h1
-                  ref={(node) => {
-                    if (node) heroItemsRef.current[2] = node;
-                  }}
-                  className="mt-4 max-w-2xl text-5xl font-semibold tracking-tight text-ink-900 sm:text-6xl lg:text-7xl"
-                >
-                  A cleaner path through election day.
-                </h1>
-                <p
-                  ref={(node) => {
-                    if (node) heroItemsRef.current[3] = node;
-                  }}
-                  className="mt-6 max-w-2xl text-base leading-8 text-ink-600 sm:text-lg"
-                >
-                  Understand eligibility, find your polling booth, and move through voting day with a calm, step-by-step interface instead of a crowded civic dashboard.
-                </p>
-              </div>
+      {/* ── HERO MAIN ── */}
+      <div className="relative mx-auto max-w-7xl px-4 pb-0 pt-24 sm:px-6 lg:px-8 lg:pt-32">
+        <div className="grid gap-16 lg:grid-cols-[1fr_0.85fr] lg:gap-8">
 
-              <div
-                ref={(node) => {
-                  if (node) heroItemsRef.current[4] = node;
-                }}
-                className="mt-8 flex flex-col gap-3 sm:flex-row"
-              >
-                <Link
-                  href="/assistant"
-                  className="inline-flex items-center justify-center rounded-full bg-ink-900 px-6 py-3 text-sm font-semibold text-paper-50 transition hover:-translate-y-0.5 hover:bg-ink-800"
-                >
-                  Start assistant
-                </Link>
-                <Link
-                  href="/map"
-                  className="inline-flex items-center justify-center rounded-full border border-ink-200 bg-white px-6 py-3 text-sm font-semibold text-ink-800 transition hover:-translate-y-0.5 hover:border-ember-300 hover:bg-ember-50"
-                >
-                  Find a booth
-                </Link>
-                <Link
-                  href="/timeline"
-                  className="inline-flex items-center justify-center rounded-full border border-transparent px-6 py-3 text-sm font-semibold text-ink-500 transition hover:-translate-y-0.5 hover:text-ink-900"
-                >
-                  View timeline
-                </Link>
-              </div>
-
-              <div
-                ref={(node) => {
-                  if (node) heroItemsRef.current[5] = node;
-                }}
-                className="mt-8 grid gap-3 sm:grid-cols-3"
-              >
-                {proofPoints.map((item) => (
-                  <div key={item} className="rounded-[1.4rem] border border-black/8 bg-white/80 p-4 text-sm leading-6 text-ink-600 shadow-soft">
-                    {item}
-                  </div>
-                ))}
-              </div>
+          {/* LEFT: Text */}
+          <div className="flex flex-col justify-center">
+            {/* Eyebrow */}
+            <div
+              ref={(n) => { if (n) itemsRef.current[0] = n; }}
+              className="inline-flex w-fit items-center gap-2 rounded-sm border border-ember/30 bg-ember/10 px-4 py-1.5 font-mono text-[0.65rem] font-bold uppercase tracking-[0.32em] text-ember"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-ember animate-pulse" />
+              Neutral civic flow
             </div>
 
-            <div
-              ref={(node) => {
-                if (node) heroItemsRef.current[6] = node;
-              }}
-              className="relative z-10 mt-10 grid gap-3 border-t border-black/8 pt-6 md:grid-cols-[1.2fr_0.8fr]"
+            {/* H1 */}
+            <h1
+              ref={(n) => { if (n) itemsRef.current[1] = n; }}
+              className="mt-8 max-w-2xl font-mono text-5xl font-bold uppercase leading-[1.05] tracking-tight text-fog-50 sm:text-6xl lg:text-[4.5rem]"
             >
-              <div className="rounded-[1.6rem] border border-black/8 bg-white/70 p-5 shadow-soft">
-                <p className="font-mono text-[0.68rem] uppercase tracking-[0.3em] text-ink-400">What it covers</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {["Eligibility", "Registration", "Polling booth", "Documents", "Completion"].map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-ink-200 bg-paper-50 px-3 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-ink-700"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              Know before<br />
+              <span className="text-ember">you go.</span>
+            </h1>
 
-              <div className="rounded-[1.6rem] border border-black/8 bg-ink-900 p-5 text-paper-50 shadow-soft">
-                <p className="font-mono text-[0.68rem] uppercase tracking-[0.3em] text-paper-300">Privacy posture</p>
-                <p className="mt-3 text-sm leading-7 text-paper-200">
-                  Progress stays inside the browser, so users can move through the flow without creating a server-side profile.
-                </p>
-              </div>
+            {/* Sub */}
+            <p
+              ref={(n) => { if (n) itemsRef.current[2] = n; }}
+              className="mt-6 max-w-lg text-base leading-8 text-fog-400"
+            >
+              Understand your eligibility, find your polling booth, and move through election day with clarity — not confusion.
+            </p>
+
+            {/* CTAs */}
+            <div
+              ref={(n) => { if (n) itemsRef.current[3] = n; }}
+              className="mt-10 flex flex-wrap items-center gap-4"
+            >
+              <Link
+                href="/assistant"
+                className="inline-flex items-center gap-2 rounded-sm bg-ember px-7 py-3.5 font-mono text-[0.72rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
+              >
+                Start assistant →
+              </Link>
+              <Link
+                href="/timeline"
+                className="inline-flex items-center gap-2 rounded-sm border border-white/10 px-7 py-3.5 font-mono text-[0.72rem] font-bold uppercase tracking-[0.22em] text-fog-300 transition hover:border-white/25 hover:text-fog-100"
+              >
+                View timeline
+              </Link>
+            </div>
+
+            {/* Stats bar */}
+            <div
+              ref={(n) => { if (n) itemsRef.current[4] = n; }}
+              className="mt-14 flex items-center gap-6 border-t border-white/[0.07] pt-8"
+            >
+              {stats.map((s) => (
+                <div key={s.label} className="flex flex-col gap-1">
+                  <span className="font-mono text-xl font-bold text-fog-50">{s.value}</span>
+                  <span className="font-mono text-[0.62rem] uppercase tracking-[0.28em] text-fog-500">{s.label}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="relative overflow-hidden bg-ink-900">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_22%,rgba(244,127,31,0.32),transparent_16%),radial-gradient(circle_at_18%_72%,rgba(255,200,128,0.16),transparent_20%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.2))]" />
+          {/* RIGHT: Visual card + orbs */}
+          <div className="relative hidden lg:flex lg:items-center lg:justify-center">
+            {/* Floating orb 1 – large */}
+            <div
+              ref={orbRef1}
+              className="absolute -right-8 top-4 h-40 w-40 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,213,120,0.95),rgba(244,127,31,0.80)_45%,rgba(90,40,5,0.95)_100%)] shadow-orange-glow"
+            />
+            {/* Floating orb 2 – smaller */}
+            <div
+              ref={orbRef2}
+              className="absolute right-24 top-32 h-24 w-24 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,230,160,0.98),rgba(244,127,31,0.72)_42%,rgba(80,35,5,0.95)_100%)] shadow-orange-glow"
+            />
+            {/* Floating orb 3 – accent */}
+            <div
+              ref={orbRef3}
+              className="absolute -right-4 top-48 h-14 w-14 rounded-full bg-ember/60 blur-sm"
+            />
 
-            <div className="absolute inset-0 opacity-90">
-              <div className="absolute left-[-10%] top-[15%] h-[44rem] w-[44rem] rounded-full border border-white/12" />
-              <div className="absolute right-[-14%] top-[3%] h-[34rem] w-[34rem] rounded-full border border-white/10" />
-              <div className="absolute bottom-[-18%] right-[-8%] h-[24rem] w-[24rem] rounded-full border border-ember-400/18" />
-              <div className="absolute left-[8%] top-[18%] h-[1px] w-[78%] bg-gradient-to-r from-transparent via-white/35 to-transparent rotate-12" />
-              <div className="absolute left-[4%] top-[31%] h-[1px] w-[82%] bg-gradient-to-r from-transparent via-white/20 to-transparent rotate-12" />
-              <div className="absolute left-[2%] top-[43%] h-[1px] w-[86%] bg-gradient-to-r from-transparent via-white/12 to-transparent rotate-12" />
-            </div>
+            {/* Glass card */}
+            <div
+              ref={(n) => { if (n) itemsRef.current[5] = n; }}
+              className="relative z-10 w-full max-w-sm rounded-sm border border-white/[0.08] bg-white/[0.04] p-6 shadow-card backdrop-blur-xl"
+            >
+              <p className="font-mono text-[0.62rem] uppercase tracking-[0.36em] text-fog-500">Live system</p>
+              <p className="mt-3 font-mono text-3xl font-bold text-fog-50">28 districts</p>
+              <p className="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.26em] text-ember">currently using the guide</p>
 
-            <div className="relative flex h-full flex-col justify-between p-6 sm:p-8">
-              <div className="flex items-center justify-between gap-4">
-                <div
-                  ref={(node) => {
-                    if (node) floaterRefs.current[0] = node;
-                  }}
-                  className="rounded-full border border-white/12 bg-white/6 px-4 py-2 text-[0.66rem] font-semibold uppercase tracking-[0.32em] text-paper-100 backdrop-blur-md"
-                >
-                  28 districts currently using the guide
-                </div>
-                <div
-                  ref={(node) => {
-                    if (node) floaterRefs.current[1] = node;
-                  }}
-                  className="hidden rounded-full border border-white/12 bg-white/6 px-4 py-2 text-[0.66rem] font-semibold uppercase tracking-[0.32em] text-paper-100 backdrop-blur-md lg:block"
-                >
-                  Google Maps + browser geolocation
-                </div>
-              </div>
-
-              <div className="relative mx-auto flex w-full max-w-[34rem] flex-1 items-center justify-center">
-                <div
-                  ref={(node) => {
-                    if (node) floaterRefs.current[2] = node;
-                  }}
-                  className="absolute left-8 top-10 h-28 w-28 rounded-full border border-white/15 bg-[radial-gradient(circle_at_30%_30%,rgba(255,213,164,0.95),rgba(244,127,31,0.75)_45%,rgba(68,34,10,0.95)_100%)] shadow-[0_0_80px_rgba(244,127,31,0.22)]"
-                />
-                <div
-                  ref={(node) => {
-                    if (node) floaterRefs.current[3] = node;
-                  }}
-                  className="absolute right-6 top-28 h-20 w-20 rounded-full border border-white/15 bg-[radial-gradient(circle_at_30%_30%,rgba(255,220,183,0.98),rgba(244,127,31,0.7)_42%,rgba(76,35,10,0.95)_100%)] shadow-[0_0_70px_rgba(244,127,31,0.18)]"
-                />
-
-                <div className="relative w-full rounded-[2rem] border border-white/10 bg-white/6 p-5 text-paper-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-xl">
-                  <p className="font-mono text-[0.66rem] uppercase tracking-[0.34em] text-paper-300">Current mode</p>
-                  <h2 className="mt-3 max-w-sm text-3xl font-semibold tracking-tight text-paper-50">
-                    Power your civic flow with a quiet, structured path.
-                  </h2>
-                  <p className="mt-3 max-w-md text-sm leading-7 text-paper-200">
-                    Every surface here is designed to reduce confusion, keep the process neutral, and make each step feel obvious on desktop or mobile.
-                  </p>
-
-                  <div className="mt-6 grid gap-3">
-                    {capabilityRows.map((row, index) => (
-                      <article
-                        key={row.label}
-                        ref={(node) => {
-                          if (node) floaterRefs.current[index + 4] = node;
-                        }}
-                        className="rounded-[1.5rem] border border-white/10 bg-black/15 p-4"
-                      >
-                        <div className="flex items-center justify-between gap-4">
-                          <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-paper-300">{row.label}</p>
-                          <span className="font-mono text-[0.65rem] uppercase tracking-[0.28em] text-paper-400">/0{index + 1}</span>
-                        </div>
-                        <h3 className="mt-3 text-lg font-semibold tracking-tight text-paper-50">{row.title}</h3>
-                        <p className="mt-2 text-sm leading-6 text-paper-200">{row.text}</p>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-[1.6rem] border border-white/10 bg-white/6 p-4 text-paper-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.10)] backdrop-blur-xl">
-                  <p className="font-mono text-[0.66rem] uppercase tracking-[0.3em] text-paper-300">Transaction value</p>
-                  <p className="mt-2 text-3xl font-semibold tracking-tight text-paper-50">$45,409,115,424</p>
-                </div>
-                <div className="rounded-[1.6rem] border border-white/10 bg-white/6 p-4 text-paper-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.10)] backdrop-blur-xl">
-                  <p className="font-mono text-[0.66rem] uppercase tracking-[0.3em] text-paper-300">Coverage</p>
-                  <p className="mt-2 text-sm leading-7 text-paper-200">
-                    One assistant, one route timeline, and one location finder, arranged for faster decision making.
-                  </p>
-                </div>
+              <div className="mt-6 space-y-3">
+                {features.map((f) => (
+                  <Link
+                    key={f.num}
+                    href={f.href}
+                    className="group flex items-start gap-4 rounded-sm border border-white/[0.06] bg-white/[0.03] p-4 transition hover:border-ember/30 hover:bg-ember/[0.06]"
+                  >
+                    <span className="font-mono text-[0.6rem] font-bold tracking-widest text-fog-500">{f.num}</span>
+                    <div>
+                      <p className="font-mono text-[0.62rem] font-bold uppercase tracking-[0.28em] text-ember">{f.label}</p>
+                      <p className="mt-1 text-sm font-semibold text-fog-100">{f.title}</p>
+                      <p className="mt-1 text-[0.72rem] leading-5 text-fog-500">{f.text}</p>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="border-t border-black/8 bg-white/75 px-6 py-5 sm:px-10">
-          <div className="flex flex-wrap items-center gap-3">
-            {partnerMarks.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-black/8 bg-paper-50 px-3 py-1.5 font-mono text-[0.66rem] uppercase tracking-[0.28em] text-ink-500"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
+      {/* ── TICKER / Partner bar ── */}
+      <div className="relative mt-20 border-t border-white/[0.07] bg-void-50/60 px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl items-center gap-4 overflow-x-auto">
+          <span className="shrink-0 font-mono text-[0.6rem] uppercase tracking-[0.3em] text-ember">Tools →</span>
+          {["Eligibility Check", "Registration Guide", "Polling Booth Finder", "Document Checklist", "Step Timeline", "Browser-Local Only"].map((item) => (
+            <span
+              key={item}
+              className="shrink-0 rounded-sm border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.24em] text-fog-400"
+            >
+              {item}
+            </span>
+          ))}
         </div>
       </div>
     </section>

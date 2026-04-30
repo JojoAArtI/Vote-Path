@@ -1,140 +1,156 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import { GsapReveal } from "@/components/GsapReveal";
 
-const proofColumns = [
+const whyCards = [
   {
-    title: "Built for clarity",
-    text: "VotePath uses a quiet visual system, crisp labels, and a linear flow so people can move without second-guessing the interface."
+    tag:   "Clarity",
+    title: "Zero noise.",
+    text:  "VotePath strips civic info down to what you actually need on election day. No persuasion, no political framing.",
   },
   {
-    title: "Built for neutrality",
-    text: "There are no recommendations, no persuasion hooks, and no political framing, only practical help for election-day preparation."
+    tag:   "Neutrality",
+    title: "No recommendations.",
+    text:  "No party affiliations. No political framing. Just the practical steps that get you to and through your polling booth.",
   },
   {
-    title: "Built for privacy",
-    text: "Progress stays local in the browser, which keeps the experience lightweight and reduces the need to hand over personal data."
-  }
+    tag:   "Privacy",
+    title: "Stays in your browser.",
+    text:  "Progress is local. No server-side profile, no tracking. Your data doesn't leave the tab.",
+  },
 ];
 
 const routeCards = [
   {
-    href: "/assistant",
+    href:  "/assistant",
+    num:   "01",
     label: "Assistant",
     title: "Get a tailored voting path.",
-    text: "Answer a few short questions and the guide adapts to your voting setup."
+    text:  "Answer a few short questions. The guide adapts to your setup.",
+    dark:  true,
   },
   {
-    href: "/timeline",
+    href:  "/timeline",
+    num:   "02",
     label: "Timeline",
     title: "See the process in order.",
-    text: "Eligibility, registration, documents, the booth, and results are laid out step by step."
+    text:  "Eligibility, registration, documents, the booth — step by step.",
+    dark:  false,
   },
   {
-    href: "/map",
+    href:  "/map",
+    num:   "03",
     label: "Map",
-    title: "Find the booth before you leave.",
-    text: "Use browser geolocation or manual area entry to explore mock polling locations."
-  }
+    title: "Find your booth before you leave.",
+    text:  "Browser geolocation or manual entry — no noisy experience.",
+    dark:  false,
+  },
 ];
 
 export default function HomePage() {
   return (
-    <div className="pb-12">
+    <div className="bg-void">
       <Hero />
 
-      <GsapReveal className="mx-auto mt-8 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-          <article
-            data-gsap-item
-            className="rounded-[2rem] border border-black/10 bg-paper-50 p-6 shadow-soft sm:p-8"
-          >
-            <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ink-400">Why it matters</p>
-            <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
-              A calmer way to understand election day.
-            </h2>
-            <p className="mt-4 max-w-2xl text-base leading-8 text-ink-600">
-              VotePath reduces the voting process to a quiet sequence. You can ask for help, check the timeline, and look up a mock polling location without navigating a noisy or persuasive experience.
-            </p>
+      {/* ── WHY SECTION ── */}
+      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        {/* Eyebrow */}
+        <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.36em] text-ember">
+          Why it matters
+        </p>
+        <h2 className="mt-5 max-w-2xl font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-4xl lg:text-5xl">
+          Engineered to help<br />you vote better.
+        </h2>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              {proofColumns.map((block) => (
-                <div
-                  key={block.title}
-                  className="rounded-[1.4rem] border border-black/8 bg-white px-4 py-3 text-sm font-medium text-ink-700 shadow-soft"
-                >
-                  {block.title}
-                </div>
-              ))}
-            </div>
-          </article>
-
-          <div className="grid gap-4">
-            <article
-              data-gsap-item
-              className="rounded-[2rem] border border-black/10 bg-ink-900 p-6 text-paper-50 shadow-soft sm:p-8"
+        <div className="mt-12 grid gap-px border border-white/[0.06] sm:grid-cols-3">
+          {whyCards.map((c) => (
+            <div
+              key={c.tag}
+              className="bg-void-50/40 p-8 transition hover:bg-white/[0.03]"
             >
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-paper-300">What you get</p>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-paper-50">
-                Three surfaces, one consistent path.
+              <span className="inline-block rounded-sm border border-ember/30 bg-ember/10 px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ember">
+                {c.tag}
+              </span>
+              <h3 className="mt-5 font-mono text-xl font-bold uppercase tracking-tight text-fog-50">
+                {c.title}
               </h3>
-              <p className="mt-4 text-sm leading-7 text-paper-200">
-                The assistant, timeline, and map pages all keep the same visual language, so users do not need to relearn the interface as they move through the flow.
-              </p>
-            </article>
-
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              {proofColumns.slice(1).map((block) => (
-                <article
-                  key={block.title}
-                  data-gsap-item
-                  className="rounded-[2rem] border border-black/10 bg-white p-6 shadow-soft sm:p-7"
-                >
-                  <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">{block.title}</p>
-                  <p className="mt-3 text-sm leading-7 text-ink-600">{block.text}</p>
-                </article>
-              ))}
+              <p className="mt-3 text-sm leading-7 text-fog-400">{c.text}</p>
             </div>
-          </div>
+          ))}
         </div>
-      </GsapReveal>
+      </section>
 
-      <GsapReveal className="mx-auto mt-8 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+      {/* ── ROUTES SECTION ── */}
+      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+        <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.36em] text-ember">
+          Three surfaces
+        </p>
+        <h2 className="mt-5 max-w-xl font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-4xl">
+          One consistent<br />path.
+        </h2>
+
+        <div className="mt-12 grid gap-4 lg:grid-cols-[1.25fr_1fr]">
+          {/* Large card */}
           <Link
             href={routeCards[0].href}
-            data-gsap-item
-            className="group rounded-[2rem] border border-black/10 bg-white p-6 shadow-soft transition hover:-translate-y-0.5 sm:p-8"
+            className="group relative flex flex-col justify-between overflow-hidden rounded-sm border border-white/[0.07] bg-ember p-8 transition hover:bg-ember-400"
           >
-            <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">{routeCards[0].label}</p>
-            <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink-900">{routeCards[0].title}</h3>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-ink-600">{routeCards[0].text}</p>
+            <div className="flex items-start justify-between">
+              <span className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-black/50">
+                {routeCards[0].num} / {routeCards[0].label}
+              </span>
+              <span className="font-mono text-[0.7rem] font-bold text-black/40 transition group-hover:translate-x-1">→</span>
+            </div>
+            <div className="mt-24">
+              <h3 className="font-mono text-2xl font-bold uppercase leading-tight tracking-tight text-black sm:text-3xl">
+                {routeCards[0].title}
+              </h3>
+              <p className="mt-3 max-w-md text-sm leading-7 text-black/60">{routeCards[0].text}</p>
+            </div>
           </Link>
 
+          {/* Two stacked cards */}
           <div className="grid gap-4">
-            {routeCards.slice(1).map((card, index) => (
+            {routeCards.slice(1).map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
-                data-gsap-item
-                className={`rounded-[2rem] border border-black/10 p-6 shadow-soft transition hover:-translate-y-0.5 sm:p-8 ${
-                  index === 0 ? "bg-ink-900 text-paper-50" : "bg-paper-50 text-ink-900"
-                }`}
+                className="group flex flex-col justify-between rounded-sm border border-white/[0.07] bg-void-50/60 p-8 transition hover:border-ember/30 hover:bg-white/[0.04]"
               >
-                <p className={`font-mono text-[0.68rem] uppercase tracking-[0.32em] ${index === 0 ? "text-paper-300" : "text-ember-600"}`}>
-                  {card.label}
-                </p>
-                <h3 className={`mt-3 text-2xl font-semibold tracking-tight ${index === 0 ? "text-paper-50" : "text-ink-900"}`}>
-                  {card.title}
-                </h3>
-                <p className={`mt-3 text-sm leading-7 ${index === 0 ? "text-paper-200" : "text-ink-600"}`}>
-                  {card.text}
-                </p>
+                <div className="flex items-start justify-between">
+                  <span className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-fog-500">
+                    {card.num} / {card.label}
+                  </span>
+                  <span className="font-mono text-[0.7rem] font-bold text-fog-600 transition group-hover:translate-x-1 group-hover:text-ember">→</span>
+                </div>
+                <div className="mt-10">
+                  <h3 className="font-mono text-xl font-bold uppercase tracking-tight text-fog-50">
+                    {card.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-fog-400">{card.text}</p>
+                </div>
               </Link>
             ))}
           </div>
         </div>
-      </GsapReveal>
+      </section>
+
+      {/* ── CTA BANNER ── */}
+      <section className="border-t border-white/[0.06] bg-void-50/50">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 py-16 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+          <div>
+            <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.36em] text-ember">Ready?</p>
+            <h2 className="mt-3 font-mono text-2xl font-bold uppercase tracking-tight text-fog-50 sm:text-3xl">
+              Know before you go.<br />Start in seconds.
+            </h2>
+          </div>
+          <Link
+            href="/assistant"
+            className="shrink-0 inline-flex items-center gap-2 rounded-sm bg-ember px-8 py-4 font-mono text-[0.72rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
+          >
+            Start assistant →
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Space_Mono, Geist } from "next/font/google";
+import { DM_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const geist = Geist({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-geist-sans",
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
 });
 
 const spaceMono = Space_Mono({
