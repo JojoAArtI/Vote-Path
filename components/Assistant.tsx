@@ -135,28 +135,28 @@ export default function Assistant() {
 
   return (
     <section className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-      <GsapReveal className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civic-700">Interactive assistant</p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+      <GsapReveal className="rounded-[2rem] border border-black/10 bg-paper-50 p-6 shadow-soft sm:p-8">
+        <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">Interactive assistant</p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
           Answer a few questions for tailored guidance.
         </h2>
-        <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
+        <p className="mt-4 max-w-xl text-base leading-8 text-ink-600">
           The assistant is rule-based, privacy-friendly, and focused on the civic process only. It does not make political recommendations, and it stays useful even if you only know part of your voting setup.
         </p>
 
-        <div className="mt-6 rounded-3xl bg-slate-50 p-4 ring-1 ring-slate-200">
+        <div className="mt-6 rounded-[1.75rem] border border-black/10 bg-ink-900 p-5 text-paper-50 shadow-soft">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm font-medium text-slate-600">Progress</p>
-              <p className="text-lg font-semibold text-slate-900">
+              <p className="font-mono text-[0.66rem] uppercase tracking-[0.3em] text-paper-300">Progress</p>
+              <p className="mt-2 text-lg font-semibold text-paper-50">
                 {answeredCount} of 5 questions complete
               </p>
             </div>
-            <p className="text-lg font-semibold text-civic-800">{progressPercent}%</p>
+            <p className="text-2xl font-semibold tracking-tight text-ember-300">{progressPercent}%</p>
           </div>
-          <div className="mt-3 h-3 rounded-full bg-slate-200">
+          <div className="mt-4 h-2 rounded-full bg-white/10">
             <div
-              className="h-3 rounded-full bg-gradient-to-r from-civic-600 to-civicGreen-500 transition-all"
+              className="h-2 rounded-full bg-gradient-to-r from-ember-500 to-amber-200 transition-all"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -166,10 +166,10 @@ export default function Assistant() {
           {transcript.map((entry) => (
             <div
               key={entry.id}
-              className={`max-w-[92%] rounded-3xl px-4 py-3 text-sm leading-6 shadow-sm ${
+              className={`max-w-[92%] rounded-[1.5rem] px-4 py-3 text-sm leading-7 shadow-soft ${
                 entry.speaker === "assistant"
-                  ? "bg-civic-50 text-slate-700 ring-1 ring-civic-100"
-                  : "ml-auto bg-slate-900 text-white"
+                  ? "border border-black/8 bg-white/85 text-ink-700"
+                  : "ml-auto bg-ink-900 text-paper-50"
               }`}
             >
               {entry.text}
@@ -177,8 +177,8 @@ export default function Assistant() {
           ))}
         </div>
 
-        <div className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-5">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civicGreen-700">What this assistant covers</p>
+        <div className="mt-8 rounded-[1.75rem] border border-black/10 bg-white p-5 shadow-soft">
+          <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">What this assistant covers</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {[
               "Eligibility and first-time voter prep",
@@ -186,7 +186,7 @@ export default function Assistant() {
               "Polling location and map guidance",
               "Simple voting-day step-by-step help"
             ].map((item) => (
-              <div key={item} data-gsap-item className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700">
+              <div key={item} data-gsap-item className="rounded-[1.3rem] border border-black/8 bg-paper-50 px-4 py-3 text-sm font-medium text-ink-700">
                 {item}
               </div>
             ))}
@@ -197,22 +197,22 @@ export default function Assistant() {
           <button
             type="button"
             onClick={resetAssistant}
-            className="rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
+            className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-semibold text-ink-700 transition hover:-translate-y-0.5 hover:border-ember-300 hover:bg-ember-50"
           >
             Start over
           </button>
         </div>
       </GsapReveal>
 
-      <GsapReveal className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
+      <GsapReveal className="rounded-[2rem] border border-black/10 bg-white/85 p-6 shadow-soft sm:p-8">
         {question ? (
           <div className="space-y-6">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civicGreen-700">
+              <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">
                 Step {answeredCount + 1} of 5
               </p>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">{question.label}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{question.helperText}</p>
+              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink-900">{question.label}</h3>
+              <p className="mt-2 text-sm leading-7 text-ink-600">{question.helperText}</p>
             </div>
 
             {question.type === "yesno" ? (
@@ -226,7 +226,7 @@ export default function Assistant() {
                     type="button"
                     onClick={() => setYesNoAnswer(question.id, option.value)}
                     data-gsap-item
-                    className="rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-left text-base font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:border-civic-300 hover:bg-civic-50"
+                    className="rounded-[1.5rem] border border-black/10 bg-paper-50 px-5 py-4 text-left text-base font-semibold text-ink-800 transition hover:-translate-y-0.5 hover:border-ember-300 hover:bg-ember-50"
                   >
                     {option.label}
                   </button>
@@ -234,7 +234,7 @@ export default function Assistant() {
               </div>
             ) : (
               <div className="space-y-3">
-                <label htmlFor="age" className="text-sm font-medium text-slate-700">
+                <label htmlFor="age" className="text-sm font-medium text-ink-700">
                   Enter your age
                 </label>
                 <div className="flex flex-col gap-3 sm:flex-row">
@@ -251,18 +251,18 @@ export default function Assistant() {
                       setAgeInput(event.target.value);
                       setAgeError("");
                     }}
-                    className="h-12 flex-1 rounded-2xl border border-slate-300 bg-white px-4 text-base text-slate-900 shadow-sm transition focus:border-civic-400 focus:outline-none"
+                    className="h-12 flex-1 rounded-2xl border border-ink-200 bg-white px-4 text-base text-ink-900 shadow-sm transition focus:border-ember-400 focus:outline-none"
                     placeholder="For example, 24"
                   />
                   <button
                     type="button"
                     onClick={submitAge}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl bg-slate-900 px-5 text-sm font-semibold text-white transition hover:bg-slate-800"
+                    className="inline-flex h-12 items-center justify-center rounded-2xl bg-ink-900 px-5 text-sm font-semibold text-paper-50 transition hover:bg-ink-800"
                   >
                     Continue
                   </button>
                 </div>
-                <p id="age-help" className="text-sm text-slate-500">
+                <p id="age-help" className="text-sm text-ink-500">
                   This is used only to check whether voting guidance should mention eligibility.
                 </p>
                 {ageError ? (
@@ -275,20 +275,20 @@ export default function Assistant() {
           </div>
         ) : (
           <div className="space-y-5">
-            <div className="rounded-3xl bg-civic-50 p-5 ring-1 ring-civic-100">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civic-700">Your guidance</p>
-              <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{guidance.headline}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{guidance.intro}</p>
+            <div className="rounded-[1.75rem] border border-black/10 bg-ink-900 p-5 text-paper-50 shadow-soft">
+              <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-paper-300">Your guidance</p>
+              <h3 className="mt-2 text-2xl font-semibold tracking-tight text-paper-50">{guidance.headline}</h3>
+              <p className="mt-3 text-sm leading-7 text-paper-200">{guidance.intro}</p>
             </div>
 
             <div className="grid gap-4">
               {guidance.sections.map((section) => (
-                <article key={section.title} data-gsap-item className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                  <h4 className="text-lg font-semibold text-slate-900">{section.title}</h4>
-                  <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-600">
+                <article key={section.title} data-gsap-item className="rounded-[1.6rem] border border-black/10 bg-paper-50 p-5">
+                  <h4 className="text-lg font-semibold text-ink-900">{section.title}</h4>
+                  <ul className="mt-3 space-y-2 text-sm leading-7 text-ink-600">
                     {section.items.map((item) => (
                       <li key={item} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 flex-none rounded-full bg-civicGreen-500" />
+                        <span className="mt-2 h-2 w-2 flex-none rounded-full bg-ember-500" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -304,7 +304,7 @@ export default function Assistant() {
                 "Share the assistant with someone who wants a neutral explanation.",
                 "Return anytime if your voting details change."
               ].map((item) => (
-                <div key={item} data-gsap-item className="rounded-3xl border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-600">
+                <div key={item} data-gsap-item className="rounded-[1.4rem] border border-black/8 bg-white px-4 py-4 text-sm leading-7 text-ink-600 shadow-soft">
                   {item}
                 </div>
               ))}

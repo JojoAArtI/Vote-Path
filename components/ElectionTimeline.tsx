@@ -87,17 +87,25 @@ const timelineSteps = [
 export default function ElectionTimeline() {
   return (
     <section className="space-y-6">
-      <GsapReveal className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-        <div data-gsap-item className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civic-700">Election timeline</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">A clear path from eligibility to results.</h2>
-          <p className="mt-3 text-base leading-7 text-slate-600">
+      <GsapReveal className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+        <div
+          data-gsap-item
+          className="rounded-[2rem] border border-black/10 bg-paper-50 p-6 shadow-soft sm:p-8"
+        >
+          <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">Election timeline</p>
+          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            A clear path from eligibility to results.
+          </h2>
+          <p className="mt-3 max-w-2xl text-base leading-8 text-ink-600">
             Expand any card to see a simple explanation of each step. The structure stays intentionally lightweight so it works well on mobile.
           </p>
         </div>
 
-        <div data-gsap-item className="rounded-[2rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-soft sm:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/60">At a glance</p>
+        <div
+          data-gsap-item
+          className="rounded-[2rem] border border-black/10 bg-ink-900 p-6 text-paper-50 shadow-soft sm:p-8"
+        >
+          <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-paper-300">At a glance</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {[
               "Eligibility comes first so you know which path to follow.",
@@ -105,10 +113,10 @@ export default function ElectionTimeline() {
               "Documents and voting time should be checked before you leave.",
               "The timeline is neutral, practical, and easy to scan."
             ].map((item) => (
-              <div key={item} className="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-white/80">
+              <div key={item} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4 text-sm leading-6 text-paper-200">
                 {item}
               </div>
-              ))}
+            ))}
           </div>
         </div>
       </GsapReveal>
@@ -118,25 +126,25 @@ export default function ElectionTimeline() {
           <details
             key={step.title}
             data-gsap-item
-            className="group rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft"
+            className="group rounded-[1.75rem] border border-black/10 bg-white/85 p-5 shadow-soft"
           >
             <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
               <div>
-                <div className="inline-flex rounded-full bg-civic-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-civic-700">
+                <div className="inline-flex rounded-full border border-ember-200 bg-ember-50 px-3 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.26em] text-ember-700">
                   Step {index + 1}
                 </div>
-                <h3 className="mt-3 text-xl font-semibold tracking-tight text-slate-950">{step.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{step.summary}</p>
+                <h3 className="mt-3 text-xl font-semibold tracking-tight text-ink-900">{step.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-ink-600">{step.summary}</p>
               </div>
-              <span className="mt-1 inline-flex h-10 w-10 flex-none items-center justify-center rounded-full bg-slate-100 text-xl font-medium text-slate-500 transition group-open:rotate-45">
+              <span className="mt-1 inline-flex h-10 w-10 flex-none items-center justify-center rounded-full border border-black/8 bg-paper-50 text-xl font-medium text-ink-500 transition group-open:rotate-45">
                 +
               </span>
             </summary>
-            <div className="mt-4 border-t border-slate-200 pt-4">
-              <ul className="space-y-2 text-sm leading-7 text-slate-600">
+            <div className="mt-4 border-t border-black/8 pt-4">
+              <ul className="space-y-2 text-sm leading-7 text-ink-600">
                 {step.details.map((detail) => (
                   <li key={detail} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 flex-none rounded-full bg-civicGreen-500" />
+                    <span className="mt-2 h-2 w-2 flex-none rounded-full bg-ember-500" />
                     <span>{detail}</span>
                   </li>
                 ))}

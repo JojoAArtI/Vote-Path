@@ -5,43 +5,61 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        civic: {
-          50: "#eff8ff",
-          100: "#dbeeff",
-          200: "#b9ddff",
-          300: "#86c6ff",
-          400: "#4da8ff",
-          500: "#1e88ff",
-          600: "#156fe0",
-          700: "#1559b5",
-          800: "#164a90",
-          900: "#123e75"
+        // Dark surfaces
+        void: {
+          DEFAULT: "#0a0a0a",
+          50:  "#1a1a1a",
+          100: "#141414",
+          200: "#111111",
+          300: "#0e0e0e",
         },
-        civicGreen: {
-          50: "#eefbf6",
-          100: "#d5f6e7",
-          200: "#aaecd1",
-          300: "#6ddbb4",
-          400: "#34c793",
-          500: "#16a874",
-          600: "#10855e",
-          700: "#11684c",
-          800: "#13513d",
-          900: "#114236"
+        // Brand orange (from Nado)
+        ember: {
+          50:  "#fff4ea",
+          100: "#ffe5cb",
+          200: "#ffcca0",
+          300: "#ffad69",
+          400: "#ff9337",
+          500: "#f47f1f",
+          600: "#d56613",
+          700: "#ac4d10",
+          800: "#873d12",
+          900: "#6b3110",
+          DEFAULT: "#f47f1f",
+        },
+        // Off-white text
+        fog: {
+          50:  "#faf9f7",
+          100: "#f0ebe4",
+          200: "#d8d2ca",
+          300: "#b8b0a6",
+          400: "#8f8880",
+          500: "#6a6460",
+        },
+        // Dark card surfaces
+        card: {
+          DEFAULT: "#111111",
+          hover: "#161616",
+          border: "rgba(255,255,255,0.07)",
         }
       },
+      fontFamily: {
+        sans:  ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono:  ["var(--font-space-mono)", "monospace"],
+      },
       boxShadow: {
-        soft: "0 18px 40px -24px rgba(15, 23, 42, 0.3)",
-        glow: "0 24px 60px -28px rgba(30, 136, 255, 0.35)"
+        "orange-glow": "0 0 60px -10px rgba(244,127,31,0.35)",
+        "card":        "0 1px 0 rgba(255,255,255,0.05) inset, 0 24px 60px -30px rgba(0,0,0,0.6)",
+        "nav":         "0 1px 0 rgba(255,255,255,0.06) inset",
       },
       backgroundImage: {
-        "civic-grid":
-          "linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px)"
-      }
+        "radial-orange": "radial-gradient(circle at 70% 20%, rgba(244,127,31,0.30), transparent 40%)",
+        "radial-ember":  "radial-gradient(circle at 20% 80%, rgba(244,127,31,0.12), transparent 35%)",
+        "grid-dark":     "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
+      },
     }
   },
   plugins: []
 };
 
 export default config;
-

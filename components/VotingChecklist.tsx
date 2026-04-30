@@ -63,23 +63,32 @@ export default function VotingChecklist() {
   }
 
   return (
-    <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <section className="rounded-[2rem] border border-black/10 bg-white/85 p-6 shadow-soft sm:p-8">
+      <div className="grid gap-6 lg:grid-cols-[1fr_0.55fr] lg:items-end">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-civicGreen-700">Voting day checklist</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">Keep the day calm and organized.</h2>
-          <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+          <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">Voting day checklist</p>
+          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            Keep the day calm and organized.
+          </h2>
+          <p className="mt-3 max-w-2xl text-base leading-8 text-ink-600">
             Tick each item as you prepare. The checklist stays local to your browser so it survives refresh without storing personal data on a server.
           </p>
         </div>
 
-        <div className="rounded-3xl bg-slate-50 px-4 py-3 text-sm text-slate-700 ring-1 ring-slate-200">
-          <div className="font-semibold text-slate-900">
-            {completedCount} / {checklistItems.length} complete
+        <div className="rounded-[1.75rem] border border-black/10 bg-ink-900 p-5 text-paper-50 shadow-soft">
+          <p className="font-mono text-[0.66rem] uppercase tracking-[0.3em] text-paper-300">Completion</p>
+          <div className="mt-3 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-3xl font-semibold tracking-tight text-paper-50">
+                {completedCount} / {checklistItems.length}
+              </p>
+              <p className="mt-1 text-sm text-paper-200">items complete</p>
+            </div>
+            <p className="font-mono text-[0.68rem] uppercase tracking-[0.3em] text-ember-300">{allComplete ? "Ready" : "In progress"}</p>
           </div>
-          <div className="mt-2 h-2 w-56 max-w-full overflow-hidden rounded-full bg-slate-200">
+          <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-civic-600 to-civicGreen-500 transition-all"
+              className="h-full rounded-full bg-gradient-to-r from-ember-500 to-amber-200 transition-all duration-300"
               style={{ width: `${(completedCount / checklistItems.length) * 100}%` }}
             />
           </div>
@@ -93,20 +102,20 @@ export default function VotingChecklist() {
           return (
             <label
               key={item}
-              className={`flex cursor-pointer items-center gap-4 rounded-3xl border px-4 py-4 transition hover:-translate-y-0.5 ${
+              className={`flex cursor-pointer items-center gap-4 rounded-[1.4rem] border px-4 py-4 transition hover:-translate-y-0.5 ${
                 checked
-                  ? "border-civicGreen-200 bg-civicGreen-50"
-                  : "border-slate-200 bg-slate-50 hover:border-civic-300"
+                  ? "border-ember-200 bg-ember-50"
+                  : "border-black/8 bg-paper-50 hover:border-ember-200 hover:bg-white"
               }`}
             >
               <input
                 type="checkbox"
-                className="h-5 w-5 rounded border-slate-300 text-civic-600 focus:ring-civic-400"
+                className="h-5 w-5 rounded border-ink-300 text-ember-600 focus:ring-ember-400"
                 checked={checked}
                 onChange={() => toggleItem(item)}
                 aria-label={item}
               />
-              <span className={`text-base font-medium ${checked ? "text-civicGreen-900" : "text-slate-800"}`}>
+              <span className={`text-sm font-medium leading-6 ${checked ? "text-ink-900" : "text-ink-700"}`}>
                 {item}
               </span>
             </label>
@@ -115,15 +124,13 @@ export default function VotingChecklist() {
       </div>
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className={`text-sm font-medium ${allComplete ? "text-civicGreen-700" : "text-slate-500"}`}>
-          {allComplete
-            ? "You are ready for voting day."
-            : "Complete the items above before heading out."}
+        <p className={`text-sm font-medium ${allComplete ? "text-ember-700" : "text-ink-500"}`}>
+          {allComplete ? "You are ready for voting day." : "Complete the items above before heading out."}
         </p>
         <button
           type="button"
           onClick={resetChecklist}
-          className="rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
+          className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-semibold text-ink-700 transition hover:-translate-y-0.5 hover:border-ember-300 hover:bg-ember-50"
         >
           Reset checklist
         </button>
@@ -131,4 +138,3 @@ export default function VotingChecklist() {
     </section>
   );
 }
-
