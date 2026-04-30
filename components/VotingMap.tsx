@@ -236,75 +236,78 @@ export default function VotingMap() {
 
   return (
     <section className="space-y-6">
+      {/* Page header */}
       <div className="max-w-3xl">
-        <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">Voting location finder</p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">Find a mock polling booth near you.</h2>
-        <p className="mt-3 max-w-2xl text-base leading-8 text-ink-600">
-          The map uses Google Maps JavaScript API only after you click a location button. If permission is denied or the key is missing, the app falls back gracefully.
+        <span className="inline-block rounded-sm border border-ember-500/30 bg-ember-500/10 px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ember-500">
+          Voting location finder
+        </span>
+        <h2 className="mt-5 font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-4xl">
+          Find a mock polling booth.
+        </h2>
+        <p className="mt-4 max-w-2xl text-sm leading-8 text-fog-400">
+          The map uses Google Maps only after you click. If permission is denied or the key is missing, the manual flow still works.
         </p>
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
-        <div className="rounded-[2rem] border border-black/10 bg-white/85 p-4 shadow-soft sm:p-6">
+        {/* Map panel */}
+        <div className="rounded-sm border border-white/[0.07] bg-void-50 p-4 sm:p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <button
               type="button"
               onClick={requestCurrentLocation}
-              className="inline-flex items-center justify-center rounded-full bg-ink-900 px-6 py-3 text-sm font-semibold text-paper-50 transition hover:-translate-y-0.5 hover:bg-ink-800"
+              className="inline-flex items-center justify-center rounded-sm bg-ember-500 px-6 py-3 font-mono text-[0.68rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
             >
               Use my current location
             </button>
-            <p className="text-sm text-ink-500">
-              {apiKey ? "Google Maps API key detected." : "Google Maps key missing; showing manual fallback only."}
+            <p className="font-mono text-[0.6rem] uppercase tracking-[0.26em] text-fog-500">
+              {apiKey ? "Google Maps API key detected." : "Google Maps key missing — manual fallback only."}
             </p>
           </div>
 
-          <div className="mt-4 rounded-[1.75rem] border border-black/10 bg-paper-50 p-4">
-            <div className="relative min-h-[28rem] overflow-hidden rounded-[1.5rem] border border-black/10 bg-[linear-gradient(135deg,#fff7ec_0%,#ffffff_48%,#f6efe4_100%)] shadow-inner">
+          <div className="mt-4 rounded-sm border border-white/[0.07] bg-void p-2">
+            <div className="relative min-h-[28rem] overflow-hidden rounded-sm border border-white/[0.06] bg-void-100">
               <div ref={mapRef} className="absolute inset-0" />
 
               {!apiKey ? (
                 <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
-                  <div className="max-w-md rounded-[1.75rem] border border-black/10 bg-white/90 p-6 shadow-soft">
-                    <p className="text-lg font-semibold text-ink-900">Google Maps API key is not set.</p>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
-                      Add <code className="rounded bg-paper-100 px-1.5 py-0.5 text-ink-800">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to enable the live map. The manual location flow still works.
+                  <div className="max-w-md rounded-sm border border-white/[0.08] bg-void-50 p-6">
+                    <p className="font-mono text-base font-bold uppercase tracking-tight text-fog-50">Google Maps key not set.</p>
+                    <p className="mt-3 text-sm leading-6 text-fog-400">
+                      Add <code className="rounded-sm bg-white/[0.08] px-1.5 py-0.5 font-mono text-xs text-ember-400">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to enable the live map. The manual location flow still works.
                     </p>
                   </div>
                 </div>
               ) : locationMode === "idle" || locationMode === "loading" ? (
                 <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
-                  <div className="max-w-md rounded-[1.75rem] border border-black/10 bg-white/90 p-6 shadow-soft">
-                    <p className="text-lg font-semibold text-ink-900">Click to share your location.</p>
-                    <p className="mt-3 text-sm leading-6 text-ink-600">
+                  <div className="max-w-md rounded-sm border border-white/[0.08] bg-void-50 p-6">
+                    <p className="font-mono text-base font-bold uppercase tracking-tight text-fog-50">
+                      {locationMode === "loading" ? "Detecting location..." : "Click to share your location."}
+                    </p>
+                    <p className="mt-3 text-sm leading-6 text-fog-400">
                       We only request browser geolocation after you click the button above.
                     </p>
                   </div>
                 </div>
               ) : locationMode === "manual" ? (
                 <div className="absolute inset-0 flex items-center justify-center p-8">
-                  <div className="w-full max-w-lg rounded-[1.75rem] border border-black/10 bg-white p-6 shadow-soft">
-                    <h3 className="text-2xl font-semibold tracking-tight text-ink-900">Enter your area details</h3>
-                    <p className="mt-2 text-sm leading-6 text-ink-600">
-                      Use your state, district, and area so VotePath can generate a demo map near your location.
+                  <div className="w-full max-w-lg rounded-sm border border-white/[0.08] bg-void-50 p-6">
+                    <h3 className="font-mono text-xl font-bold uppercase tracking-tight text-fog-50">Enter your area</h3>
+                    <p className="mt-2 text-sm leading-6 text-fog-400">
+                      Enter state, district, and area to generate a demo map near your location.
                     </p>
                     <div className="mt-5 grid gap-3">
                       {[
-                        { key: "state", label: "State" },
+                        { key: "state",    label: "State"    },
                         { key: "district", label: "District" },
-                        { key: "area", label: "Area" }
+                        { key: "area",     label: "Area"     }
                       ].map((field) => (
-                        <label key={field.key} className="grid gap-2 text-sm font-medium text-ink-700">
-                          {field.label}
+                        <label key={field.key} className="grid gap-1.5">
+                          <span className="font-mono text-[0.62rem] font-bold uppercase tracking-[0.28em] text-fog-500">{field.label}</span>
                           <input
                             value={manualLocation[field.key as keyof ManualLocation]}
-                            onChange={(event) =>
-                              setManualLocation((current) => ({
-                                ...current,
-                                [field.key]: event.target.value
-                              }))
-                            }
-                            className="h-12 rounded-2xl border border-ink-200 bg-white px-4 text-base text-ink-900 shadow-sm focus:border-ember-400 focus:outline-none"
+                            onChange={(e) => setManualLocation((curr) => ({ ...curr, [field.key]: e.target.value }))}
+                            className="h-11 rounded-sm border border-white/[0.10] bg-white/[0.04] px-4 font-mono text-sm text-fog-50 placeholder-fog-600 transition focus:border-ember-500/60 focus:outline-none"
                             placeholder={`Enter ${field.label.toLowerCase()}`}
                           />
                         </label>
@@ -313,14 +316,14 @@ export default function VotingMap() {
                     <button
                       type="button"
                       onClick={submitManualLocation}
-                      className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-ink-900 px-5 py-3 text-sm font-semibold text-paper-50 transition hover:bg-ink-800"
+                      className="mt-5 inline-flex w-full items-center justify-center rounded-sm bg-ember-500 px-5 py-3 font-mono text-[0.68rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
                     >
                       Show demo booths
                     </button>
                   </div>
                 </div>
               ) : (
-                <div className="absolute left-4 top-4 z-10 rounded-2xl border border-black/10 bg-white/90 px-4 py-3 text-sm font-medium text-ink-700 shadow-soft backdrop-blur">
+                <div className="absolute left-4 top-4 z-10 rounded-sm border border-white/[0.10] bg-void-50/90 px-4 py-2.5 font-mono text-xs text-fog-300 backdrop-blur">
                   {apiReady ? `Centered near ${locationLabel || "your chosen area"}.` : "Preparing map..."}
                 </div>
               )}
@@ -328,70 +331,75 @@ export default function VotingMap() {
           </div>
         </div>
 
+        {/* Right sidebar */}
         <div className="space-y-4">
-          {locationError ? (
-            <div className="rounded-[1.75rem] border border-rose-200 bg-rose-50 p-5 text-sm leading-6 text-rose-800">
+          {locationError && (
+            <div className="rounded-sm border border-red-500/30 bg-red-500/[0.08] p-4 font-mono text-xs leading-6 text-red-400">
               {locationError}
             </div>
-          ) : null}
+          )}
 
-          <div className="rounded-[1.75rem] border border-black/10 bg-white/85 p-5 shadow-soft">
-            <p className="font-mono text-[0.66rem] uppercase tracking-[0.3em] text-ember-600">Booth details</p>
+          {/* Booth details */}
+          <div className="rounded-sm border border-white/[0.07] bg-void-50 p-5">
+            <p className="font-mono text-[0.62rem] uppercase tracking-[0.3em] text-ember-500">Booth details</p>
             {selectedBooth ? (
-              <div className="mt-4 space-y-4">
+              <div className="mt-4 space-y-3">
                 <div>
-                  <h3 className="text-2xl font-semibold tracking-tight text-ink-900">{selectedBooth.name}</h3>
-                  <p className="mt-2 text-sm text-ink-600">Distance estimate: {formatDistance(selectedBooth.distanceKm)}</p>
+                  <h3 className="font-mono text-xl font-bold uppercase tracking-tight text-fog-50">{selectedBooth.name}</h3>
+                  <p className="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.26em] text-fog-500">
+                    Distance: {formatDistance(selectedBooth.distanceKm)}
+                  </p>
                 </div>
-                <div className="rounded-[1.5rem] border border-black/8 bg-paper-50 p-4">
-                  <p className="text-sm font-semibold text-ink-900">Accessibility</p>
-                  <p className="mt-1 text-sm leading-6 text-ink-600">{selectedBooth.accessibility}</p>
+                <div className="rounded-sm border border-white/[0.06] bg-white/[0.03] p-4">
+                  <p className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.26em] text-fog-500">Accessibility</p>
+                  <p className="mt-2 text-sm leading-6 text-fog-300">{selectedBooth.accessibility}</p>
                 </div>
-                <div className="rounded-[1.5rem] border border-ember-200 bg-ember-50 p-4">
-                  <p className="text-sm font-semibold text-ember-800">Suggested visit time</p>
-                  <p className="mt-1 text-sm leading-6 text-ink-600">{selectedBooth.suggestedTime}</p>
+                <div className="rounded-sm border border-ember-500/20 bg-ember-500/[0.07] p-4">
+                  <p className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.26em] text-ember-500">Suggested visit time</p>
+                  <p className="mt-2 text-sm leading-6 text-fog-300">{selectedBooth.suggestedTime}</p>
                 </div>
-                <div className="rounded-[1.5rem] border border-black/8 bg-white p-4">
-                  <p className="text-sm font-semibold text-ink-900">Documents reminder</p>
-                  <p className="mt-1 text-sm leading-6 text-ink-600">{selectedBooth.documentsReminder}</p>
+                <div className="rounded-sm border border-white/[0.06] bg-white/[0.03] p-4">
+                  <p className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.26em] text-fog-500">Documents reminder</p>
+                  <p className="mt-2 text-sm leading-6 text-fog-300">{selectedBooth.documentsReminder}</p>
                 </div>
               </div>
             ) : (
-              <p className="mt-4 text-sm leading-6 text-ink-600">
-                Select a booth marker to view the booth name, distance estimate, accessibility note, suggested visit time, and documents reminder.
+              <p className="mt-4 text-sm leading-6 text-fog-500">
+                Select a booth marker to view details — distance, accessibility, suggested time, and documents.
               </p>
             )}
           </div>
 
-          <div className="rounded-[1.75rem] border border-black/10 bg-white/85 p-5 shadow-soft">
-            <p className="font-mono text-[0.66rem] uppercase tracking-[0.3em] text-ember-600">Nearby mock booths</p>
-            <div className="mt-4 grid gap-3">
+          {/* Nearby booths list */}
+          <div className="rounded-sm border border-white/[0.07] bg-void-50 p-5">
+            <p className="font-mono text-[0.62rem] uppercase tracking-[0.3em] text-ember-500">Nearby mock booths</p>
+            <div className="mt-4 grid gap-2">
               {booths.length > 0 ? (
                 booths.map((booth) => (
                   <button
                     key={booth.id}
                     type="button"
                     onClick={() => setSelectedBoothId(booth.id)}
-                    className={`rounded-3xl border px-4 py-4 text-left transition hover:-translate-y-0.5 ${
+                    className={`rounded-sm border px-4 py-4 text-left transition ${
                       selectedBoothId === booth.id
-                        ? "border-ember-300 bg-ember-50"
-                        : "border-black/8 bg-paper-50 hover:border-ember-200 hover:bg-white"
+                        ? "border-ember-500/30 bg-ember-500/[0.08]"
+                        : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.14]"
                     }`}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <p className="font-semibold text-ink-900">{booth.name}</p>
-                        <p className="mt-1 text-sm text-ink-600">{formatDistance(booth.distanceKm)} away</p>
+                        <p className="font-mono text-sm font-bold text-fog-100">{booth.name}</p>
+                        <p className="mt-1 font-mono text-[0.6rem] uppercase tracking-[0.24em] text-fog-500">{formatDistance(booth.distanceKm)} away</p>
                       </div>
-                      <span className="rounded-full border border-black/8 bg-white px-3 py-1 text-xs font-semibold text-ink-500">
+                      <span className="rounded-sm border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 font-mono text-[0.58rem] font-bold uppercase tracking-[0.22em] text-fog-500">
                         Booth
                       </span>
                     </div>
                   </button>
                 ))
               ) : (
-                <p className="text-sm leading-6 text-ink-600">
-                  Use the location button or enter your state, district, and area to generate demo booths.
+                <p className="text-sm leading-6 text-fog-500">
+                  Use the location button or enter your area to generate demo booths.
                 </p>
               )}
             </div>
@@ -401,3 +409,4 @@ export default function VotingMap() {
     </section>
   );
 }
+
