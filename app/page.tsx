@@ -92,7 +92,7 @@ export default function HomePage() {
           {/* Large card */}
           <Link
             href={routeCards[0].href}
-            className="group relative flex flex-col justify-between overflow-hidden rounded-sm border border-white/[0.07] bg-ember p-8 transition hover:bg-ember-400"
+            className="group relative flex flex-col justify-between overflow-hidden rounded-sm border border-white/[0.07] bg-ember-500 p-8 transition hover:bg-ember-400"
           >
             <div className="flex items-start justify-between">
               <span className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-black/50">
@@ -145,7 +145,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/assistant"
-            className="shrink-0 inline-flex items-center gap-2 rounded-sm bg-ember px-8 py-4 font-mono text-[0.72rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
+            className="shrink-0 inline-flex items-center gap-2 rounded-sm bg-ember-500 px-8 py-4 font-mono text-[0.72rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
           >
             Start assistant →
           </Link>

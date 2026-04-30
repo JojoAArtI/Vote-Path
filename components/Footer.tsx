@@ -15,7 +15,7 @@ export default function Footer() {
           {/* Left */}
           <div>
             <div className="inline-flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-ember font-mono text-[10px] font-bold tracking-widest text-black">VP</span>
+              <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-ember-500 font-mono text-[10px] font-bold tracking-widest text-black">VP</span>
               <span className="font-mono text-[0.78rem] font-bold uppercase tracking-[0.32em] text-fog-100">VotePath</span>
             </div>
             <h2 className="mt-8 max-w-md font-mono text-2xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-3xl">
