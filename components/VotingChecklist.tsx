@@ -16,18 +16,12 @@ const checklistItems = [
 ];
 
 function readStoredItems(): string[] {
-  if (typeof window === "undefined") {
-    return [];
-  }
-
+  if (typeof window === "undefined") return [];
   const raw = window.localStorage.getItem(STORAGE_KEY);
-  if (!raw) {
-    return [];
-  }
-
+  if (!raw) return [];
   try {
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter((value) => typeof value === "string") : [];
+    return Array.isArray(parsed) ? parsed.filter((v) => typeof v === "string") : [];
   } catch {
     return [];
   }
@@ -36,86 +30,99 @@ function readStoredItems(): string[] {
 export default function VotingChecklist() {
   const [completeItems, setCompleteItems] = useState<string[]>([]);
 
+  useEffect(() => { setCompleteItems(readStoredItems()); }, []);
   useEffect(() => {
-    setCompleteItems(readStoredItems());
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined")
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(completeItems));
-    }
   }, [completeItems]);
 
   const completedCount = useMemo(() => completeItems.length, [completeItems]);
   const allComplete = completedCount === checklistItems.length;
 
   function toggleItem(item: string) {
-    setCompleteItems((current) =>
-      current.includes(item) ? current.filter((value) => value !== item) : [...current, item]
+    setCompleteItems((curr) =>
+      curr.includes(item) ? curr.filter((v) => v !== item) : [...curr, item]
     );
   }
 
   function resetChecklist() {
     setCompleteItems([]);
-    if (typeof window !== "undefined") {
-      window.localStorage.removeItem(STORAGE_KEY);
-    }
+    if (typeof window !== "undefined") window.localStorage.removeItem(STORAGE_KEY);
   }
 
   return (
-    <section className="rounded-[2rem] border border-black/10 bg-white/85 p-6 shadow-soft sm:p-8">
+    <section className="rounded-sm border border-white/[0.07] bg-void-50 p-6 sm:p-8">
       <div className="grid gap-6 lg:grid-cols-[1fr_0.55fr] lg:items-end">
         <div>
-          <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">Voting day checklist</p>
-          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
-            Keep the day calm and organized.
+          <span className="inline-block rounded-sm border border-ember-500/30 bg-ember-500/10 px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ember-500">
+            Voting day checklist
+          </span>
+          <h2 className="mt-5 font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-4xl">
+            Keep the day<br />organised.
           </h2>
-          <p className="mt-3 max-w-2xl text-base leading-8 text-ink-600">
-            Tick each item as you prepare. The checklist stays local to your browser so it survives refresh without storing personal data on a server.
+          <p className="mt-4 max-w-2xl text-sm leading-8 text-fog-400">
+            Tick each item as you prepare. Stays local to your browser — no server-side data.
           </p>
         </div>
 
-        <div className="rounded-[1.75rem] border border-black/10 bg-ink-900 p-5 text-paper-50 shadow-soft">
-          <p className="font-mono text-[0.66rem] uppercase tracking-[0.3em] text-paper-300">Completion</p>
+        {/* Completion card */}
+        <div className="rounded-sm border border-white/[0.07] bg-void p-5">
+          <p className="font-mono text-[0.62rem] uppercase tracking-[0.3em] text-fog-500">Completion</p>
           <div className="mt-3 flex items-end justify-between gap-4">
             <div>
-              <p className="text-3xl font-semibold tracking-tight text-paper-50">
-                {completedCount} / {checklistItems.length}
+              <p className="font-mono text-3xl font-bold text-fog-50">
+                {completedCount} <span className="text-fog-500">/ {checklistItems.length}</span>
               </p>
-              <p className="mt-1 text-sm text-paper-200">items complete</p>
+              <p className="mt-1 text-xs text-fog-500">items complete</p>
             </div>
-            <p className="font-mono text-[0.68rem] uppercase tracking-[0.3em] text-ember-300">{allComplete ? "Ready" : "In progress"}</p>
+            <p className={`font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] ${allComplete ? "text-ember-500" : "text-fog-500"}`}>
+              {allComplete ? "Ready ✓" : "In progress"}
+            </p>
           </div>
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
+          <div className="mt-4 h-1.5 overflow-hidden rounded-sm bg-white/10">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-ember-500 to-amber-200 transition-all duration-300"
+              className="h-full rounded-sm bg-ember-500 transition-all duration-300"
               style={{ width: `${(completedCount / checklistItems.length) * 100}%` }}
             />
           </div>
         </div>
       </div>
 
-      <div className="mt-6 grid gap-3 md:grid-cols-2">
+      {/* Checklist items */}
+      <div className="mt-8 grid gap-2 md:grid-cols-2">
         {checklistItems.map((item) => {
           const checked = completeItems.includes(item);
-
           return (
             <label
               key={item}
-              className={`flex cursor-pointer items-center gap-4 rounded-[1.4rem] border px-4 py-4 transition hover:-translate-y-0.5 ${
+              className={`flex cursor-pointer items-center gap-4 rounded-sm border px-4 py-4 transition ${
                 checked
-                  ? "border-ember-200 bg-ember-50"
-                  : "border-black/8 bg-paper-50 hover:border-ember-200 hover:bg-white"
+                  ? "border-ember-500/30 bg-ember-500/[0.08]"
+                  : "border-white/[0.07] bg-white/[0.02] hover:border-white/[0.14]"
               }`}
             >
+              {/* Custom checkbox */}
+              <span
+                className={`flex h-5 w-5 flex-none items-center justify-center rounded-sm border transition ${
+                  checked
+                    ? "border-ember-500 bg-ember-500 text-black"
+                    : "border-white/[0.20] bg-transparent"
+                }`}
+              >
+                {checked && (
+                  <svg viewBox="0 0 10 8" fill="none" className="h-3 w-3">
+                    <path d="M1 4l3 3 5-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </span>
               <input
                 type="checkbox"
-                className="h-5 w-5 rounded border-ink-300 text-ember-600 focus:ring-ember-400"
+                className="sr-only"
                 checked={checked}
                 onChange={() => toggleItem(item)}
                 aria-label={item}
               />
-              <span className={`text-sm font-medium leading-6 ${checked ? "text-ink-900" : "text-ink-700"}`}>
+              <span className={`text-sm font-medium leading-6 ${checked ? "text-fog-300 line-through decoration-ember-500/60" : "text-fog-100"}`}>
                 {item}
               </span>
             </label>
@@ -123,14 +130,15 @@ export default function VotingChecklist() {
         })}
       </div>
 
+      {/* Footer row */}
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className={`text-sm font-medium ${allComplete ? "text-ember-700" : "text-ink-500"}`}>
+        <p className={`font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] ${allComplete ? "text-ember-500" : "text-fog-500"}`}>
           {allComplete ? "You are ready for voting day." : "Complete the items above before heading out."}
         </p>
         <button
           type="button"
           onClick={resetChecklist}
-          className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-semibold text-ink-700 transition hover:-translate-y-0.5 hover:border-ember-300 hover:bg-ember-50"
+          className="rounded-sm border border-white/[0.10] px-5 py-2.5 font-mono text-[0.65rem] font-bold uppercase tracking-[0.22em] text-fog-400 transition hover:border-white/25 hover:text-fog-100"
         >
           Reset checklist
         </button>

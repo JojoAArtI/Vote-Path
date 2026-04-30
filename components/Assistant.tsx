@@ -28,10 +28,7 @@ export default function Assistant() {
 
   useEffect(() => {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return;
-    }
-
+    if (!raw) return;
     try {
       const parsed = JSON.parse(raw) as AssistantAnswers;
       setAnswers(parsed);
@@ -43,9 +40,7 @@ export default function Assistant() {
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
-    if (typeof answers.age === "number") {
-      setAgeInput(String(answers.age));
-    }
+    if (typeof answers.age === "number") setAgeInput(String(answers.age));
   }, [answers]);
 
   const question = getNextQuestion(answers);
@@ -55,61 +50,18 @@ export default function Assistant() {
 
   const transcript = useMemo<TranscriptEntry[]>(() => {
     const entries: TranscriptEntry[] = [
-      {
-        id: "intro-1",
-        speaker: "assistant",
-        text: "I will ask five short questions and then give you a neutral voting guide."
-      }
+      { id: "intro-1", speaker: "assistant", text: "I will ask five short questions and then give you a neutral voting guide." }
     ];
-
-    if (answers.firstTimeVoter) {
-      entries.push({
-        id: "first-time",
-        speaker: "user",
-        text: `First-time voter: ${getYesNoLabel(answers.firstTimeVoter)}`
-      });
-    }
-
-    if (typeof answers.age === "number") {
-      entries.push({
-        id: "age",
-        speaker: "user",
-        text: `Age: ${answers.age}`
-      });
-    }
-
-    if (answers.hasVoterId) {
-      entries.push({
-        id: "voter-id",
-        speaker: "user",
-        text: `Already have voter ID: ${getYesNoLabel(answers.hasVoterId)}`
-      });
-    }
-
-    if (answers.knowsPollingLocation) {
-      entries.push({
-        id: "polling-location",
-        speaker: "user",
-        text: `Know polling location: ${getYesNoLabel(answers.knowsPollingLocation)}`
-      });
-    }
-
-    if (answers.needsDocumentHelp) {
-      entries.push({
-        id: "documents",
-        speaker: "user",
-        text: `Need document help: ${getYesNoLabel(answers.needsDocumentHelp)}`
-      });
-    }
-
+    if (answers.firstTimeVoter) entries.push({ id: "first-time", speaker: "user", text: `First-time voter: ${getYesNoLabel(answers.firstTimeVoter)}` });
+    if (typeof answers.age === "number") entries.push({ id: "age", speaker: "user", text: `Age: ${answers.age}` });
+    if (answers.hasVoterId) entries.push({ id: "voter-id", speaker: "user", text: `Already have voter ID: ${getYesNoLabel(answers.hasVoterId)}` });
+    if (answers.knowsPollingLocation) entries.push({ id: "polling-location", speaker: "user", text: `Know polling location: ${getYesNoLabel(answers.knowsPollingLocation)}` });
+    if (answers.needsDocumentHelp) entries.push({ id: "documents", speaker: "user", text: `Need document help: ${getYesNoLabel(answers.needsDocumentHelp)}` });
     return entries;
   }, [answers]);
 
   function setYesNoAnswer(key: keyof AssistantAnswers, value: YesNo) {
-    setAnswers((current) => ({
-      ...current,
-      [key]: value
-    }));
+    setAnswers((current) => ({ ...current, [key]: value }));
   }
 
   function submitAge() {
@@ -118,12 +70,8 @@ export default function Assistant() {
       setAgeError("Please enter a valid age between 0 and 120.");
       return;
     }
-
     setAgeError("");
-    setAnswers((current) => ({
-      ...current,
-      age: parsed
-    }));
+    setAnswers((current) => ({ ...current, age: parsed }));
   }
 
   function resetAssistant() {
@@ -135,41 +83,44 @@ export default function Assistant() {
 
   return (
     <section className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-      <GsapReveal className="rounded-[2rem] border border-black/10 bg-paper-50 p-6 shadow-soft sm:p-8">
-        <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">Interactive assistant</p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
-          Answer a few questions for tailored guidance.
+      {/* ── LEFT PANEL ── */}
+      <GsapReveal className="rounded-sm border border-white/[0.07] bg-void-50 p-6 sm:p-8">
+        <span className="inline-block rounded-sm border border-ember-500/30 bg-ember-500/10 px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ember-500">
+          Interactive assistant
+        </span>
+        <h2 className="mt-5 font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-4xl">
+          Answer five questions.<br />Get your path.
         </h2>
-        <p className="mt-4 max-w-xl text-base leading-8 text-ink-600">
-          The assistant is rule-based, privacy-friendly, and focused on the civic process only. It does not make political recommendations, and it stays useful even if you only know part of your voting setup.
+        <p className="mt-4 max-w-xl text-sm leading-8 text-fog-400">
+          Rule-based and privacy-friendly. No political recommendations — just the practical civic steps that get you through election day.
         </p>
 
-        <div className="mt-6 rounded-[1.75rem] border border-black/10 bg-ink-900 p-5 text-paper-50 shadow-soft">
+        {/* Progress card */}
+        <div className="mt-6 rounded-sm border border-white/[0.07] bg-void p-5">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="font-mono text-[0.66rem] uppercase tracking-[0.3em] text-paper-300">Progress</p>
-              <p className="mt-2 text-lg font-semibold text-paper-50">
-                {answeredCount} of 5 questions complete
-              </p>
+              <p className="font-mono text-[0.62rem] uppercase tracking-[0.3em] text-fog-500">Progress</p>
+              <p className="mt-2 text-lg font-semibold text-fog-50">{answeredCount} of 5 questions complete</p>
             </div>
-            <p className="text-2xl font-semibold tracking-tight text-ember-300">{progressPercent}%</p>
+            <p className="font-mono text-2xl font-bold text-ember-500">{progressPercent}%</p>
           </div>
-          <div className="mt-4 h-2 rounded-full bg-white/10">
+          <div className="mt-4 h-1.5 rounded-sm bg-white/10">
             <div
-              className="h-2 rounded-full bg-gradient-to-r from-ember-500 to-amber-200 transition-all"
+              className="h-1.5 rounded-sm bg-ember-500 transition-all duration-500"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
         </div>
 
+        {/* Transcript */}
         <div className="mt-6 space-y-3">
           {transcript.map((entry) => (
             <div
               key={entry.id}
-              className={`max-w-[92%] rounded-[1.5rem] px-4 py-3 text-sm leading-7 shadow-soft ${
+              className={`max-w-[90%] rounded-sm px-4 py-3 text-sm leading-7 ${
                 entry.speaker === "assistant"
-                  ? "border border-black/8 bg-white/85 text-ink-700"
-                  : "ml-auto bg-ink-900 text-paper-50"
+                  ? "border border-white/[0.07] bg-white/[0.04] text-fog-300"
+                  : "ml-auto border border-ember-500/20 bg-ember-500/10 text-fog-100"
               }`}
             >
               {entry.text}
@@ -177,56 +128,59 @@ export default function Assistant() {
           ))}
         </div>
 
-        <div className="mt-8 rounded-[1.75rem] border border-black/10 bg-white p-5 shadow-soft">
-          <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">What this assistant covers</p>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        {/* Covers */}
+        <div className="mt-8 rounded-sm border border-white/[0.07] bg-void p-5">
+          <p className="font-mono text-[0.62rem] uppercase tracking-[0.3em] text-ember-500">What this covers</p>
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">
             {[
               "Eligibility and first-time voter prep",
               "Documents and voter ID reminders",
               "Polling location and map guidance",
               "Simple voting-day step-by-step help"
             ].map((item) => (
-              <div key={item} data-gsap-item className="rounded-[1.3rem] border border-black/8 bg-paper-50 px-4 py-3 text-sm font-medium text-ink-700">
+              <div key={item} className="rounded-sm border border-white/[0.06] bg-white/[0.03] px-3 py-2.5 text-xs font-medium text-fog-300">
                 {item}
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-8">
           <button
             type="button"
             onClick={resetAssistant}
-            className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-semibold text-ink-700 transition hover:-translate-y-0.5 hover:border-ember-300 hover:bg-ember-50"
+            className="rounded-sm border border-white/[0.10] px-5 py-2.5 font-mono text-[0.68rem] font-bold uppercase tracking-[0.22em] text-fog-400 transition hover:border-white/25 hover:text-fog-100"
           >
             Start over
           </button>
         </div>
       </GsapReveal>
 
-      <GsapReveal className="rounded-[2rem] border border-black/10 bg-white/85 p-6 shadow-soft sm:p-8">
+      {/* ── RIGHT PANEL ── */}
+      <GsapReveal className="rounded-sm border border-white/[0.07] bg-void-50 p-6 sm:p-8">
         {question ? (
           <div className="space-y-6">
             <div>
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-ember-600">
+              <span className="inline-block rounded-sm border border-ember-500/30 bg-ember-500/10 px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ember-500">
                 Step {answeredCount + 1} of 5
-              </p>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink-900">{question.label}</h3>
-              <p className="mt-2 text-sm leading-7 text-ink-600">{question.helperText}</p>
+              </span>
+              <h3 className="mt-5 font-mono text-2xl font-bold uppercase leading-tight tracking-tight text-fog-50">
+                {question.label}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-fog-400">{question.helperText}</p>
             </div>
 
             {question.type === "yesno" ? (
               <div className="grid gap-3 sm:grid-cols-2">
                 {[
                   { label: "Yes", value: "yes" as const },
-                  { label: "No", value: "no" as const }
+                  { label: "No",  value: "no"  as const }
                 ].map((option) => (
                   <button
                     key={option.value}
                     type="button"
                     onClick={() => setYesNoAnswer(question.id, option.value)}
-                    data-gsap-item
-                    className="rounded-[1.5rem] border border-black/10 bg-paper-50 px-5 py-4 text-left text-base font-semibold text-ink-800 transition hover:-translate-y-0.5 hover:border-ember-300 hover:bg-ember-50"
+                    className="rounded-sm border border-white/[0.08] bg-white/[0.04] px-5 py-5 text-left font-mono text-lg font-bold uppercase tracking-tight text-fog-100 transition hover:border-ember-500/40 hover:bg-ember-500/[0.08] hover:text-ember-400"
                   >
                     {option.label}
                   </button>
@@ -234,7 +188,7 @@ export default function Assistant() {
               </div>
             ) : (
               <div className="space-y-3">
-                <label htmlFor="age" className="text-sm font-medium text-ink-700">
+                <label htmlFor="age" className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] text-fog-400">
                   Enter your age
                 </label>
                 <div className="flex flex-col gap-3 sm:flex-row">
@@ -247,48 +201,47 @@ export default function Assistant() {
                     aria-invalid={ageError ? "true" : "false"}
                     aria-describedby={ageError ? "age-error" : "age-help"}
                     value={ageInput}
-                    onChange={(event) => {
-                      setAgeInput(event.target.value);
-                      setAgeError("");
-                    }}
-                    className="h-12 flex-1 rounded-2xl border border-ink-200 bg-white px-4 text-base text-ink-900 shadow-sm transition focus:border-ember-400 focus:outline-none"
-                    placeholder="For example, 24"
+                    onChange={(e) => { setAgeInput(e.target.value); setAgeError(""); }}
+                    className="h-12 flex-1 rounded-sm border border-white/[0.10] bg-white/[0.04] px-4 font-mono text-base text-fog-50 placeholder-fog-600 transition focus:border-ember-500/60 focus:outline-none"
+                    placeholder="e.g. 24"
                   />
                   <button
                     type="button"
                     onClick={submitAge}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl bg-ink-900 px-5 text-sm font-semibold text-paper-50 transition hover:bg-ink-800"
+                    className="inline-flex h-12 items-center justify-center rounded-sm bg-ember-500 px-6 font-mono text-[0.68rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
                   >
                     Continue
                   </button>
                 </div>
-                <p id="age-help" className="text-sm text-ink-500">
-                  This is used only to check whether voting guidance should mention eligibility.
+                <p id="age-help" className="text-xs text-fog-500">
+                  Used only to check whether voting guidance should mention eligibility.
                 </p>
-                {ageError ? (
-                  <p id="age-error" className="text-sm font-medium text-rose-600">
-                    {ageError}
-                  </p>
-                ) : null}
+                {ageError && (
+                  <p id="age-error" className="text-xs font-medium text-red-400">{ageError}</p>
+                )}
               </div>
             )}
           </div>
         ) : (
           <div className="space-y-5">
-            <div className="rounded-[1.75rem] border border-black/10 bg-ink-900 p-5 text-paper-50 shadow-soft">
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.32em] text-paper-300">Your guidance</p>
-              <h3 className="mt-2 text-2xl font-semibold tracking-tight text-paper-50">{guidance.headline}</h3>
-              <p className="mt-3 text-sm leading-7 text-paper-200">{guidance.intro}</p>
+            {/* Guidance headline card */}
+            <div className="rounded-sm border border-ember-500/20 bg-ember-500/[0.07] p-5">
+              <p className="font-mono text-[0.62rem] uppercase tracking-[0.3em] text-ember-500">Your guidance</p>
+              <h3 className="mt-3 font-mono text-2xl font-bold uppercase leading-tight tracking-tight text-fog-50">
+                {guidance.headline}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-fog-300">{guidance.intro}</p>
             </div>
 
+            {/* Guidance sections */}
             <div className="grid gap-4">
               {guidance.sections.map((section) => (
-                <article key={section.title} data-gsap-item className="rounded-[1.6rem] border border-black/10 bg-paper-50 p-5">
-                  <h4 className="text-lg font-semibold text-ink-900">{section.title}</h4>
-                  <ul className="mt-3 space-y-2 text-sm leading-7 text-ink-600">
+                <article key={section.title} className="rounded-sm border border-white/[0.07] bg-white/[0.03] p-5">
+                  <h4 className="font-mono text-sm font-bold uppercase tracking-[0.22em] text-fog-100">{section.title}</h4>
+                  <ul className="mt-4 space-y-2 text-sm leading-7 text-fog-400">
                     {section.items.map((item) => (
                       <li key={item} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 flex-none rounded-full bg-ember-500" />
+                        <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-ember-500" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -297,6 +250,7 @@ export default function Assistant() {
               ))}
             </div>
 
+            {/* Tips */}
             <div className="grid gap-3 sm:grid-cols-2">
               {[
                 "Keep the checklist open while you prepare.",
@@ -304,7 +258,7 @@ export default function Assistant() {
                 "Share the assistant with someone who wants a neutral explanation.",
                 "Return anytime if your voting details change."
               ].map((item) => (
-                <div key={item} data-gsap-item className="rounded-[1.4rem] border border-black/8 bg-white px-4 py-4 text-sm leading-7 text-ink-600 shadow-soft">
+                <div key={item} className="rounded-sm border border-white/[0.06] bg-white/[0.03] px-4 py-4 text-xs leading-7 text-fog-400">
                   {item}
                 </div>
               ))}
