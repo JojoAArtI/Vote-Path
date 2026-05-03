@@ -69,14 +69,6 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          {/* CTA - Hidden on mobile, shown in menu */}
-          <Link
-            href="/assistant"
-            className="hidden sm:inline-flex items-center gap-2 border-2 border-brutal-black bg-brutal-blue px-6 py-2.5 font-mono text-sm font-bold uppercase tracking-widest text-brutal-white shadow-brutal transition hover:bg-brutal-black hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
-          >
-            Start path →
-          </Link>
-          
           {/* Mobile menu toggle */}
           <button
             type="button"
@@ -117,13 +109,6 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <Link
-              href="/assistant"
-              onClick={() => setIsOpen(false)}
-              className="mt-4 flex items-center justify-center gap-2 border-2 border-brutal-black bg-brutal-black px-6 py-4 font-mono text-base font-bold uppercase tracking-widest text-brutal-white shadow-brutal"
-            >
-              Start path →
-            </Link>
           </nav>
         </div>
       )}
