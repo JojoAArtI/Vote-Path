@@ -334,7 +334,7 @@ export default function VotingMap() {
         {/* Right sidebar */}
         <div className="space-y-6">
           {locationError && (
-            <div className="border-4 border-brutal-black bg-[#ffcccc] p-4 font-mono text-xs font-bold leading-6 text-brutal-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+            <div aria-live="polite" className="border-4 border-brutal-black bg-[#ffcccc] p-4 font-mono text-xs font-bold leading-6 text-brutal-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               {locationError}
             </div>
           )}

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 const links = [
   { href: "/assistant", label: "Assistant" },
@@ -40,7 +39,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" onClick={() => setIsOpen(false)} className="group inline-flex items-center gap-3">
-          <Image src="/logo.png" alt="VotePath Logo" width={56} height={56} className="h-14 w-14 object-contain transition duration-200 group-hover:scale-105" />
+          <img src="/logo.png" alt="VotePath Logo" className="h-14 w-14 object-contain transition duration-200 group-hover:scale-105" />
           <span className={`font-mono text-lg font-bold uppercase tracking-widest ${isScrolled || !isHomePage ? "text-brutal-black" : "text-brutal-black drop-shadow-[2px_2px_0_rgba(255,255,255,1)]"}`}>
             VotePath
           </span>

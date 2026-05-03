@@ -217,7 +217,7 @@ export default function Assistant() {
                   Used only to check whether voting guidance should mention eligibility.
                 </p>
                 {ageError && (
-                  <p id="age-error" className="text-sm font-bold text-red-600">{ageError}</p>
+                  <p id="age-error" aria-live="polite" className="text-sm font-bold text-red-600">{ageError}</p>
                 )}
               </div>
             )}
