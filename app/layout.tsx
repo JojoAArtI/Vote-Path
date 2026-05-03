@@ -19,7 +19,28 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: "VotePath - Know Before You Go",
-  description: "Understand your eligibility, find your polling booth, and move through election day with clarity."
+  description: "Understand your eligibility, find your polling booth, and move through election day with clarity.",
+  icons: {
+    icon: "/logo.jpeg",
+    shortcut: "/logo.jpeg",
+    apple: "/logo.jpeg",
+  },
+  openGraph: {
+    title: "VotePath - Know Before You Go",
+    description: "Understand your eligibility, find your polling booth, and move through election day with clarity.",
+    url: "https://vote-path-one.vercel.app",
+    siteName: "VotePath",
+    images: [
+      {
+        url: "/logo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "VotePath Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
