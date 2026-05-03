@@ -39,9 +39,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" onClick={() => setIsOpen(false)} className="group inline-flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center bg-brutal-black text-[12px] font-bold text-brutal-white transition duration-200 group-hover:bg-brutal-blue">
-            VP
-          </span>
+          <img src="/logo.jpeg" alt="VotePath Logo" className="h-14 w-14 object-contain transition duration-200 group-hover:scale-105" />
           <span className={`font-mono text-lg font-bold uppercase tracking-widest ${isScrolled || !isHomePage ? "text-brutal-black" : "text-brutal-black drop-shadow-[2px_2px_0_rgba(255,255,255,1)]"}`}>
             VotePath
           </span>
