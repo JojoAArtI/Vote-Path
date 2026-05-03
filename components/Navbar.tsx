@@ -31,8 +31,8 @@ export default function Navbar() {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled || !isHomePage
-          ? "border-b-4 border-brutal-black bg-brutal-white shadow-brutal" 
-          : "border-b-4 border-brutal-black/10 bg-transparent backdrop-blur-sm"
+          ? "border-b border-brutal-black/20 bg-brutal-white" 
+          : "border-b border-brutal-black/5 bg-transparent backdrop-blur-sm"
       }`}
     >
       <div className="mx-auto flex w-full items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -45,28 +45,28 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Center nav - Desktop */}
-        <nav aria-label="Primary" className="hidden items-center gap-4 md:flex">
-          {links.map((link) => {
-            const active = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`flex items-center gap-2 border-2 border-brutal-black px-4 py-2 font-mono text-sm font-bold uppercase tracking-widest transition shadow-brutal ${
-                  active
-                    ? "bg-brutal-blue text-brutal-white"
-                    : "bg-brutal-white text-brutal-black hover:bg-brutal-gray hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
-                }`}
-              >
-                {active && <span className="block h-2 w-2 bg-brutal-white"></span>}
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+        <div className="flex items-center gap-4">
+          {/* Right nav - Desktop */}
+          <nav aria-label="Primary" className="hidden items-center gap-4 md:flex">
+            {links.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`flex items-center gap-2 border-2 border-brutal-black px-4 py-2 font-mono text-sm font-bold uppercase tracking-widest transition shadow-brutal ${
+                    active
+                      ? "bg-brutal-blue text-brutal-white"
+                      : "bg-brutal-white text-brutal-black hover:bg-brutal-gray hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+                  }`}
+                >
+                  {active && <span className="block h-2 w-2 bg-brutal-white"></span>}
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
 
-        <div className="flex items-center gap-3">
           {/* Mobile menu toggle */}
           <button
             type="button"
