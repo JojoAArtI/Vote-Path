@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const links = [
   { href: "/assistant", label: "Assistant" },
@@ -13,9 +13,28 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Determine if we're on the homepage where the transparent hero effect matters
+  const isHomePage = pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b-4 border-brutal-black bg-brutal-white">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled || !isHomePage
+          ? "border-b-4 border-brutal-black bg-brutal-white shadow-brutal" 
+          : "border-b-4 border-brutal-black/10 bg-transparent backdrop-blur-sm"
+      }`}
+    >
       <div className="mx-auto flex w-full items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
@@ -23,7 +42,7 @@ export default function Navbar() {
           <span className="flex h-8 w-8 items-center justify-center bg-brutal-black text-[12px] font-bold text-brutal-white transition duration-200 group-hover:bg-brutal-blue">
             VP
           </span>
-          <span className="font-mono text-lg font-bold uppercase tracking-widest text-brutal-black">
+          <span className={`font-mono text-lg font-bold uppercase tracking-widest ${isScrolled || !isHomePage ? "text-brutal-black" : "text-brutal-black drop-shadow-[2px_2px_0_rgba(255,255,255,1)]"}`}>
             VotePath
           </span>
         </Link>
