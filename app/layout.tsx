@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   title: "VotePath - Know Before You Go",
   description: "Understand your eligibility, find your polling booth, and move through election day with clarity.",
   icons: {
-    icon: "/logo.jpeg",
-    shortcut: "/logo.jpeg",
-    apple: "/logo.jpeg",
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
   openGraph: {
     title: "VotePath - Know Before You Go",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "VotePath",
     images: [
       {
-        url: "/logo.jpeg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "VotePath Logo",
