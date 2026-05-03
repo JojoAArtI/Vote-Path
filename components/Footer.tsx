@@ -8,40 +8,40 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] bg-void-100">
+    <footer className="border-t-4 border-brutal-black bg-brutal-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
 
           {/* Left */}
           <div>
             <div className="inline-flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-ember-500 font-mono text-[10px] font-bold tracking-widest text-black">VP</span>
-              <span className="font-mono text-[0.78rem] font-bold uppercase tracking-[0.32em] text-fog-100">VotePath</span>
+              <span className="flex h-8 w-8 items-center justify-center bg-brutal-black font-mono text-[12px] font-bold text-brutal-white">VP</span>
+              <span className="font-mono text-lg font-bold uppercase tracking-widest text-brutal-black">VotePath</span>
             </div>
-            <h2 className="mt-8 max-w-md font-mono text-2xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-3xl">
+            <h2 className="mt-8 max-w-md font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-brutal-black sm:text-4xl">
               A calmer path<br />through election day.
             </h2>
-            <p className="mt-4 max-w-sm text-sm leading-7 text-fog-500">
+            <p className="mt-4 max-w-sm text-base leading-7 text-brutal-black">
               Neutral, browser-local, and focused on the practical steps — from eligibility to polling booth.
             </p>
           </div>
 
           {/* Right */}
           <div className="flex flex-col justify-between gap-8">
-            <nav className="grid gap-2">
+            <nav className="grid gap-4">
               {footerLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center justify-between rounded-sm border border-white/[0.07] bg-white/[0.03] px-4 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.22em] text-fog-300 transition hover:border-ember/30 hover:text-ember"
+                  className="flex items-center justify-between border-2 border-brutal-black bg-brutal-white px-4 py-3 font-mono text-sm font-bold uppercase tracking-widest text-brutal-black shadow-brutal transition hover:bg-brutal-blue hover:text-brutal-white hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
                 >
                   {link.label}
-                  <span className="text-fog-600">→</span>
+                  <span className="font-bold">→</span>
                 </Link>
               ))}
             </nav>
 
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.28em] text-fog-600">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.28em] text-brutal-black">
               Built with Next.js · Tailwind CSS
             </p>
           </div>

@@ -48,85 +48,85 @@ const routeCards = [
 
 export default function HomePage() {
   return (
-    <div className="bg-void">
+    <div className="bg-brutal-white min-h-screen">
       <Hero />
 
       {/* ── WHY SECTION ── */}
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         {/* Eyebrow */}
-        <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.36em] text-ember">
-          Why it matters
+        <p className="font-mono text-sm font-bold uppercase tracking-widest text-brutal-blue">
+          ■ Why it matters
         </p>
-        <h2 className="mt-5 max-w-2xl font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-4xl lg:text-5xl">
+        <h2 className="mt-5 max-w-3xl font-mono text-4xl font-bold uppercase leading-tight tracking-tight text-brutal-black sm:text-5xl lg:text-6xl">
           Engineered to help<br />you vote better.
         </h2>
 
-        <div className="mt-12 grid gap-px border border-white/[0.06] sm:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-3">
           {whyCards.map((c) => (
             <div
               key={c.tag}
-              className="bg-void-50/40 p-8 transition hover:bg-white/[0.03]"
+              className="border-4 border-brutal-black bg-brutal-white p-8 shadow-brutal transition hover:-translate-y-2"
             >
-              <span className="inline-block rounded-sm border border-ember/30 bg-ember/10 px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ember">
+              <span className="inline-block border-2 border-brutal-black bg-brutal-blue px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest text-brutal-white">
                 {c.tag}
               </span>
-              <h3 className="mt-5 font-mono text-xl font-bold uppercase tracking-tight text-fog-50">
+              <h3 className="mt-8 font-mono text-2xl font-bold uppercase tracking-tight text-brutal-black">
                 {c.title}
               </h3>
-              <p className="mt-3 text-sm leading-7 text-fog-400">{c.text}</p>
+              <p className="mt-4 text-base font-medium leading-7 text-brutal-black/80">{c.text}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* ── ROUTES SECTION ── */}
-      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-        <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.36em] text-ember">
-          Three surfaces
+      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8 border-t-4 border-brutal-black pt-24">
+        <p className="font-mono text-sm font-bold uppercase tracking-widest text-brutal-blue">
+          ■ Three surfaces
         </p>
-        <h2 className="mt-5 max-w-xl font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-4xl">
+        <h2 className="mt-5 max-w-2xl font-mono text-4xl font-bold uppercase leading-tight tracking-tight text-brutal-black sm:text-5xl">
           One consistent<br />path.
         </h2>
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-[1.25fr_1fr]">
+        <div className="mt-12 grid gap-6 lg:grid-cols-[1.25fr_1fr]">
           {/* Large card */}
           <Link
             href={routeCards[0].href}
-            className="group relative flex flex-col justify-between overflow-hidden rounded-sm border border-white/[0.07] bg-ember-500 p-8 transition hover:bg-ember-400"
+            className="group relative flex flex-col justify-between overflow-hidden border-4 border-brutal-black bg-brutal-blue p-8 shadow-brutal transition hover:-translate-y-2 hover:bg-brutal-black"
           >
             <div className="flex items-start justify-between">
-              <span className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-black/50">
+              <span className="bg-brutal-white border-2 border-brutal-black px-2 py-1 font-mono text-xs font-bold uppercase tracking-widest text-brutal-black">
                 {routeCards[0].num} / {routeCards[0].label}
               </span>
-              <span className="font-mono text-[0.7rem] font-bold text-black/40 transition group-hover:translate-x-1">→</span>
+              <span className="font-mono text-2xl font-bold text-brutal-white transition group-hover:translate-x-2">→</span>
             </div>
-            <div className="mt-24">
-              <h3 className="font-mono text-2xl font-bold uppercase leading-tight tracking-tight text-black sm:text-3xl">
+            <div className="mt-32">
+              <h3 className="font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-brutal-white sm:text-5xl">
                 {routeCards[0].title}
               </h3>
-              <p className="mt-3 max-w-md text-sm leading-7 text-black/60">{routeCards[0].text}</p>
+              <p className="mt-6 max-w-md text-lg font-medium leading-7 text-brutal-white/90">{routeCards[0].text}</p>
             </div>
           </Link>
 
           {/* Two stacked cards */}
-          <div className="grid gap-4">
+          <div className="grid gap-6">
             {routeCards.slice(1).map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
-                className="group flex flex-col justify-between rounded-sm border border-white/[0.07] bg-void-50/60 p-8 transition hover:border-ember/30 hover:bg-white/[0.04]"
+                className="group flex flex-col justify-between border-4 border-brutal-black bg-brutal-white p-8 shadow-brutal transition hover:-translate-y-2 hover:bg-brutal-blue hover:text-brutal-white"
               >
                 <div className="flex items-start justify-between">
-                  <span className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-fog-500">
+                  <span className="border-2 border-brutal-black px-2 py-1 font-mono text-xs font-bold uppercase tracking-widest text-brutal-black group-hover:bg-brutal-white group-hover:text-brutal-black">
                     {card.num} / {card.label}
                   </span>
-                  <span className="font-mono text-[0.7rem] font-bold text-fog-600 transition group-hover:translate-x-1 group-hover:text-ember">→</span>
+                  <span className="font-mono text-2xl font-bold text-brutal-black transition group-hover:translate-x-2 group-hover:text-brutal-white">→</span>
                 </div>
-                <div className="mt-10">
-                  <h3 className="font-mono text-xl font-bold uppercase tracking-tight text-fog-50">
+                <div className="mt-12">
+                  <h3 className="font-mono text-2xl font-bold uppercase tracking-tight text-brutal-black group-hover:text-brutal-white">
                     {card.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-7 text-fog-400">{card.text}</p>
+                  <p className="mt-4 text-base font-medium leading-7 text-brutal-black/80 group-hover:text-brutal-white/90">{card.text}</p>
                 </div>
               </Link>
             ))}
@@ -135,17 +135,17 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA BANNER ── */}
-      <section className="border-t border-white/[0.06] bg-void-50/50">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 py-16 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+      <section className="border-t-4 border-b-4 border-brutal-black bg-brutal-white">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 py-20 sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <div>
-            <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.36em] text-ember">Ready?</p>
-            <h2 className="mt-3 font-mono text-2xl font-bold uppercase tracking-tight text-fog-50 sm:text-3xl">
+            <p className="font-mono text-sm font-bold uppercase tracking-widest text-brutal-blue">■ Ready?</p>
+            <h2 className="mt-4 font-mono text-4xl font-bold uppercase tracking-tight text-brutal-black sm:text-5xl">
               Know before you go.<br />Start in seconds.
             </h2>
           </div>
           <Link
             href="/assistant"
-            className="shrink-0 inline-flex items-center gap-2 rounded-sm bg-ember-500 px-8 py-4 font-mono text-[0.72rem] font-bold uppercase tracking-[0.22em] text-black transition hover:bg-ember-400"
+            className="shrink-0 inline-flex items-center gap-4 border-4 border-brutal-black bg-brutal-blue px-10 py-5 font-mono text-lg font-bold uppercase tracking-widest text-brutal-white shadow-brutal transition hover:-translate-y-1 hover:bg-brutal-black"
           >
             Start assistant →
           </Link>

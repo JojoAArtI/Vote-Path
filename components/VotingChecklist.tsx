@@ -51,37 +51,37 @@ export default function VotingChecklist() {
   }
 
   return (
-    <section className="rounded-sm border border-white/[0.07] bg-void-50 p-6 sm:p-8">
+    <section className="border-4 border-brutal-black bg-brutal-white p-6 sm:p-8 shadow-brutal">
       <div className="grid gap-6 lg:grid-cols-[1fr_0.55fr] lg:items-end">
         <div>
-          <span className="inline-block rounded-sm border border-ember-500/30 bg-ember-500/10 px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ember-500">
+          <span className="inline-block border-2 border-brutal-black bg-brutal-blue px-2.5 py-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-brutal-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
             Voting day checklist
           </span>
-          <h2 className="mt-5 font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-fog-50 sm:text-4xl">
+          <h2 className="mt-5 font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-brutal-black sm:text-4xl">
             Keep the day<br />organised.
           </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-8 text-fog-400">
+          <p className="mt-4 max-w-2xl text-sm font-medium leading-8 text-brutal-black/80">
             Tick each item as you prepare. Stays local to your browser — no server-side data.
           </p>
         </div>
 
         {/* Completion card */}
-        <div className="rounded-sm border border-white/[0.07] bg-void p-5">
-          <p className="font-mono text-[0.62rem] uppercase tracking-[0.3em] text-fog-500">Completion</p>
+        <div className="border-4 border-brutal-black bg-brutal-white p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <p className="font-mono text-[0.62rem] font-bold uppercase tracking-[0.3em] text-brutal-blue">Completion</p>
           <div className="mt-3 flex items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-3xl font-bold text-fog-50">
-                {completedCount} <span className="text-fog-500">/ {checklistItems.length}</span>
+              <p className="font-mono text-3xl font-bold text-brutal-black">
+                {completedCount} <span className="text-brutal-black/50">/ {checklistItems.length}</span>
               </p>
-              <p className="mt-1 text-xs text-fog-500">items complete</p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-widest text-brutal-black/70">items complete</p>
             </div>
-            <p className={`font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] ${allComplete ? "text-ember-500" : "text-fog-500"}`}>
+            <p className={`font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] ${allComplete ? "text-brutal-blue" : "text-brutal-black/50"}`}>
               {allComplete ? "Ready ✓" : "In progress"}
             </p>
           </div>
-          <div className="mt-4 h-1.5 overflow-hidden rounded-sm bg-white/10">
+          <div className="mt-4 h-2 border-2 border-brutal-black bg-brutal-white">
             <div
-              className="h-full rounded-sm bg-ember-500 transition-all duration-300"
+              className="h-full bg-brutal-blue transition-all duration-300"
               style={{ width: `${(completedCount / checklistItems.length) * 100}%` }}
             />
           </div>
@@ -89,29 +89,29 @@ export default function VotingChecklist() {
       </div>
 
       {/* Checklist items */}
-      <div className="mt-8 grid gap-2 md:grid-cols-2">
+      <div className="mt-8 grid gap-3 md:grid-cols-2">
         {checklistItems.map((item) => {
           const checked = completeItems.includes(item);
           return (
             <label
               key={item}
-              className={`flex cursor-pointer items-center gap-4 rounded-sm border px-4 py-4 transition ${
+              className={`flex cursor-pointer items-center gap-4 border-4 px-4 py-4 transition shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-brutal ${
                 checked
-                  ? "border-ember-500/30 bg-ember-500/[0.08]"
-                  : "border-white/[0.07] bg-white/[0.02] hover:border-white/[0.14]"
+                  ? "border-brutal-black bg-brutal-blue text-brutal-white"
+                  : "border-brutal-black bg-brutal-white text-brutal-black hover:bg-brutal-gray"
               }`}
             >
               {/* Custom checkbox */}
               <span
-                className={`flex h-5 w-5 flex-none items-center justify-center rounded-sm border transition ${
+                className={`flex h-6 w-6 flex-none items-center justify-center border-2 border-brutal-black transition ${
                   checked
-                    ? "border-ember-500 bg-ember-500 text-black"
-                    : "border-white/[0.20] bg-transparent"
+                    ? "bg-brutal-white text-brutal-blue"
+                    : "bg-brutal-white"
                 }`}
               >
                 {checked && (
-                  <svg viewBox="0 0 10 8" fill="none" className="h-3 w-3">
-                    <path d="M1 4l3 3 5-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <svg viewBox="0 0 10 8" fill="none" className="h-4 w-4">
+                    <path d="M1 4l3 3 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                   </svg>
                 )}
               </span>
@@ -122,7 +122,7 @@ export default function VotingChecklist() {
                 onChange={() => toggleItem(item)}
                 aria-label={item}
               />
-              <span className={`text-sm font-medium leading-6 ${checked ? "text-fog-300 line-through decoration-ember-500/60" : "text-fog-100"}`}>
+              <span className={`text-sm font-bold leading-6 ${checked ? "line-through decoration-brutal-white/60" : ""}`}>
                 {item}
               </span>
             </label>
@@ -131,14 +131,14 @@ export default function VotingChecklist() {
       </div>
 
       {/* Footer row */}
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className={`font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] ${allComplete ? "text-ember-500" : "text-fog-500"}`}>
+      <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t-4 border-brutal-black pt-6">
+        <p className={`font-mono text-[0.65rem] font-bold uppercase tracking-[0.28em] ${allComplete ? "text-brutal-blue" : "text-brutal-black/70"}`}>
           {allComplete ? "You are ready for voting day." : "Complete the items above before heading out."}
         </p>
         <button
           type="button"
           onClick={resetChecklist}
-          className="rounded-sm border border-white/[0.10] px-5 py-2.5 font-mono text-[0.65rem] font-bold uppercase tracking-[0.22em] text-fog-400 transition hover:border-white/25 hover:text-fog-100"
+          className="border-2 border-brutal-black bg-brutal-white px-5 py-2.5 font-mono text-[0.65rem] font-bold uppercase tracking-[0.22em] text-brutal-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-brutal-blue hover:text-brutal-white"
         >
           Reset checklist
         </button>
