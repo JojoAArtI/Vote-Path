@@ -8,7 +8,7 @@ export default function Hero() {
   const screenSize = useScreenSize();
 
   return (
-    <section className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center border-b-4 border-brutal-black bg-brutal-white overflow-hidden">
+    <section className="relative w-full h-screen min-h-[600px] flex flex-col items-center justify-center border-b-4 border-brutal-black bg-brutal-white overflow-hidden">
       {/* Background Image from Unsplash */}
       <img
         src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=1000&auto=format&fit=crop"
